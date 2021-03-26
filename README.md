@@ -67,7 +67,8 @@ The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](
         "arrowheadAdapter": false,
         "wotAdapter": true,
         "wotRepository": "wot or modron"
-    }
+    },
+    "logLevel":"info"
 }
 ```
 * arrowhead: configure the IP address and port for the ArrowHead Service Registry
@@ -79,3 +80,4 @@ The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](
   * arrowheadAdapter: true if you want to instantiate ArrowHead services as Web Things, false otherwise.
   * wotAdapter: true if you want to instantiate Web Things asArrowHead services, false otherwise.
   * wotRepository: the two modes are "modron" or "wot". Use wot if you are not using modron server.
+* logLevel: the log level of the adapter. The default is "info", choose "debug" for more details or "warning" for less.
