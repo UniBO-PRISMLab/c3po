@@ -1,5 +1,7 @@
+const gConfig = require('../config/conf.json')
+
 const pino = require("pino")({
-    level: "info",
+    level: gConfig.logLevel,
     prettyPrint: {
         levelFirst: true,
         colorize: true,

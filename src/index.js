@@ -42,3 +42,5 @@ getAuth()
   }).catch(err => {
     logger.error(err);
   });
+
+
