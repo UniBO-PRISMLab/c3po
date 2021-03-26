@@ -2,7 +2,6 @@
 
 The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things.
 
-
 ## Usage with Docker
 
 ### Docker and Docker Compose
@@ -44,6 +43,9 @@ to test if the WoT-ArrowHead Adapter is running correctly, check your browser at
 ```
 ## Configuration
 
+The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](config/conf.json)
+
+
 ```json
 {
     "arrowhead": {
@@ -68,12 +70,12 @@ to test if the WoT-ArrowHead Adapter is running correctly, check your browser at
     }
 }
 ```
-* arrowhead:
-* wotRepository:
-* poolingInterval:
-* adapter:
-* wot:
-* mode:
-  * arrowheadAdapter:
-  * wotAdapter:
-  * wotRepository:
+* arrowhead: configure the IP address and port for the ArrowHead Service Registry
+* wotRepository: configure the IP address and port for the WoT Repository. It can be a list of Web Things defined according to the [W3C WoT specification](https://w3c.github.io/wot-discovery/) or the [Modron](https://api.modron.network/graphql) server address.
+* poolingInterval: the interval in seconds to pool from arrowhead server and from the wot repository.
+* adapter: the port that the WoT-ArrowHead Adapter will run execute.
+* wot: the port for accessing the Web Things created.
+* mode: specific configurations of the WoT-ArrowHead Adapter
+  * arrowheadAdapter: true if you want to instantiate ArrowHead services as Web Things, false otherwise.
+  * wotAdapter: true if you want to instantiate Web Things asArrowHead services, false otherwise.
+  * wotRepository: the two modes are "modron" or "wot". Use wot if you are not using modron server.
