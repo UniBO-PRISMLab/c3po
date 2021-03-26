@@ -1,0 +1,11 @@
+{
+    "arrowhead": {
+        "host": "137.204.57.93",
+        "port": 8443
+    },
+    "modron": {
+        "host": "api.modron.network"
+
+    },
+    "poolingInterval": 30
+}

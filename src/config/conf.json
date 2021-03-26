@@ -1,0 +1,22 @@
+{
+    "arrowhead": {
+        "host": "137.204.57.93",
+        "port": 8443
+    },
+    "wotRepository": {
+        "host": "arces143100.arces.unibo.it",
+        "port": 8080
+    },
+    "poolingInterval": 10,
+    "adapter": {
+        "port": 3334
+    },
+    "wot": {
+        "port": 3333
+    },
+    "mode": {
+        "arrowheadAdapter": false,
+        "wotAdapter": true,
+        "wotRepository": "wot"
+    }
+}
