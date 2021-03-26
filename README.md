@@ -43,7 +43,7 @@ to test if the WoT-ArrowHead Adapter is running correctly, check your browser at
 ```
 ## Configuration
 
-The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](config/conf.json)
+The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](src/config/conf.json)
 
 
 ```json
