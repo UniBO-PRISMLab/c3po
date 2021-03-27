@@ -41,6 +41,11 @@ to test if the WoT-ArrowHead Adapter is running correctly, check your browser at
     "description": "The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHEad services into Web Things"
 }
 ```
+
+## API Documentation
+
+The project API documentation can be consulted at <http://localhost:3334/docs-api> once the application is running.
+
 ## Configuration
 
 The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](src/config/conf.json)
