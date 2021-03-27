@@ -1,0 +1,150 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "WoT-ArrowHead Adapter",
+        "description": "The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things.",
+        "contact": {
+            "email": "ivandimitry.ribeiro@unibo.it",
+            "name": "Ivan Zyrianoff"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3334"
+        }
+    ],
+    "paths": {
+        "/arrowhead": {
+            "get": {
+                "description": "returns metadata about the ArrowHead calls",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/poolingArrowHead"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    }
+                }
+            }
+        },
+        "/modron": {
+            "get": {
+                "description": "returns metadata about the modron calls",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/poolingArrowHead"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    }
+                }
+            }
+        },
+        "/management": {
+            "get": {
+                "description": "returns metadata about the modron   and the arrowhead calls",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    }
+                }
+            }
+        },
+        "/health": {
+            "get": {
+                "description": "returns an object containing some Adapter metadata if it is current running",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "poolingArrowHead": {
+                "type": "object",
+                "properties": {
+                    "lastArrowHeadCall": {
+                        "type": "object",
+                        "properties": {
+                            "timestamp": {
+                                "type": "string"
+                            },
+                            "servicesCreated": {
+                                "type": "integer"
+                            },
+                            "servicesUpdated": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "services": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "poolingWoT": {
+                "type": "object",
+                "properties": {
+                    "lastArrowHeadCall": {
+                        "type": "object",
+                        "properties": {
+                            "timestamp": {
+                                "type": "string"
+                            },
+                            "servicesCreated": {
+                                "type": "integer"
+                            },
+                            "servicesUpdated": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "devices": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "poolingManagement": {
+                "type": "object",
+                "properties": {
+                    "poolingArrowHead": {
+                        "$ref": "#/components/schemas/poolingArrowHead"
+                    },
+                    "poolingWoT": {
+                        "$ref": "#/components/schemas/poolingWoT"
+                    }
+                }
+            }
+        }
+    }
+}

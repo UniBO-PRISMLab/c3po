@@ -1,7 +1,7 @@
 {
   "name": "wot-arrowheadAdapter",
   "version": "1.0.0",
-  "description": "The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHEad services into Web Things",
+  "description": "The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js"
@@ -12,6 +12,7 @@
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-openapi-validator": "^4.12.6",
     "fast-xml-parser": "^3.19.0",
     "he": "^1.2.0",
     "js-base64": "^3.6.0",
@@ -20,7 +21,8 @@
     "pino": "^6.11.2",
     "pino-pretty": "^4.7.1",
     "require-dir": "^1.2.0",
-    "soap": "^0.36.0"
+    "soap": "^0.36.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "author": {
     "name": "Ivan Zyrianoff",
@@ -29,5 +31,9 @@
   "contributors": [
     "Luca Cotugno - luca.cotugno@studio.unibo.it"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/multer": "^1.4.5",
+    "@types/swagger-ui-express": "^4.1.2"
+  }
 }

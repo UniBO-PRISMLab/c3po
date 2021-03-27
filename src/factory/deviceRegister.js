@@ -9,6 +9,7 @@ module.exports = (thing) => {
     const uri = url.pathname;
     const protocol = url.protocol;
     return {
+        //TODO: get current date and add a specific period instead of this hardcoded date
         endOfValidity: "2031-01-01 23:59:59",
         interfaces: [
             "HTTPS-SECURE-JSON"
