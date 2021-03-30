@@ -32,7 +32,14 @@ $ npm run start
 
 ## Test
 
-to test if the WoT-ArrowHead Adapter is running correctly, check your browser at <http://localhost:3334>, the response should be:https://gartic.com.br/034893573
+to test if the WoT-ArrowHead Adapter is running correctly, check your browser at <http://localhost:3334>, the response should be:
+```json
+{
+   "status":"ArrowHead API Its Working",
+   "message":"ArrowHead version 1.0.0 is running",
+   "description":"The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things"
+}
+```
 
 The project API documentation can be consulted at <http://localhost:3334/docs-api> once the application is running.
 
