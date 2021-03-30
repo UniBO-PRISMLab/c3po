@@ -6,7 +6,7 @@ The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts
 
 ### Docker and Docker Compose
 
-This application can be deployed as a Docker container [Docker](https://www.docker.com) container. If you do not have **Docker** installed yet, follow the instructions [here](https://docs.docker.com/install/) .
+This application can be deployed as a [Docker](https://www.docker.com) container. If you do not have **Docker** installed yet, follow the instructions [here](https://docs.docker.com/install/) .
 
 You can check your current **Docker** version using the following commands:
 
