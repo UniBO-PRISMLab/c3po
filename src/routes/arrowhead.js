@@ -30,7 +30,7 @@ module.exports = (router) => {
         } else {
           poolingMetadata.addMonitoredService(req.body.systemName);
           logger.info(`service ${req.body.systemName} successfully added to the monitored arrowhead service list`);
-          res.status(200).send(`service ${req.body} successfully added to the monitored arrowhead service list`);
+          res.status(200).send(`service ${req.body.systemName} successfully added to the monitored arrowhead service list`);
         }
       } catch (err) {
         logger.error('error 503 at /arrow - service unavailable');
