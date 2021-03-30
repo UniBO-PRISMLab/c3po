@@ -1,27 +1,44 @@
-const tdFactory = require('./factory/tdFactory')
-const wotServer = require('./wotServer').getServer();
-const wotServerCreation = require('./wotServer');
+const axios = require('axios');
 
-const createThing = (td) => {
-    if (typeof wotServer === 'undefined') wotServerCreation.startServient();
-    const thing = await wotServer.produce(td);
-    logger.info(`Web Thing ${thing.getThingDescription().title} running in`);
+const wot = require('./wotServer');
+const logger = require('./logger');
+const gConfig = require('./config/conf.json')
+const resultHandler = require('./handlers/resultHandler');
+const headerFactory = require('./factory/headers');
+
+
+const createThing = async (descriptor) => {
+    const td = descriptor.td;
+    if (typeof wot.getServer() === 'undefined') await wot.startServer();
+    const thing = await wot.getServer().produce(td);
+    for (const key in thing.properties) {
+        thing.writeProperty(key, thing.properties[key]);
+        thing.setPropertyReadHandler(key, async () => {
+            const headers = headerFactory.get()
+            const propertyRequest = axios.get(descriptor.serviceUrl + '/' + key, { headers });
+            logger.info(`setting ${key} property handler of ${td.title} Thing to ${descriptor.serviceUrl + '/' + key}`);
+            return propertyRequest.then(response => response.data).catch(resultHandler.errorHandler);
+        });
+    }
+    await thing.expose();
+
+    logger.info(`Web Thing ${thing.getThingDescription().title} exposed at ${gConfig.wot.port}/${thing.getThingDescription().title}`);
 
 }
 
-const addProperties = (thing) => {
+const addProperties = (thing, path) => {
     for (const key in thing.properties) {
-        this.thing.writeProperty(key, thing.properties[key]);
-        this.thing.setPropertyReadHandler(key, async () => thing.properties[key]);
+        thing.writeProperty(key, thing.properties[key]);
+        thing.setPropertyReadHandler(key, async () => {
+            const headers = headerFactory.get()
+
+            const propertyRequest = axios.get(path.url + '/' + key,
+                { headers });
+            return propertyRequest.then(response => response.data).catch(resultHandler.errorHandler);
+        });
     }
 }
 
-// if (current[0].hasOwnProperty('output')) {
-const addActions = (thing) => {
-    thing.setActionHandler(key, async (params, options) => {
-
-    })
-};
 
 module.exports = {
     createThing

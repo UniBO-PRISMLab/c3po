@@ -33,9 +33,26 @@
                         "description": "Service Unavailable"
                     }
                 }
+            },
+            "post": {
+                "description": "add a new service name to be translate as a Web Thing",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "503": {
+                        "description": "Service Unavailable"
+                    },
+                    "422": {
+                        "description": "object send does not match the requested parameters"
+                    },
+                    "409": {
+                        "description": "Service name is already monitored"
+                    }
+                }
             }
         },
-        "/modron": {
+        "/wotRepository": {
             "get": {
                 "description": "returns metadata about the modron calls",
                 "responses": {
@@ -95,54 +112,60 @@
                             },
                             "servicesCreated": {
                                 "type": "integer"
-                            },
-                            "servicesUpdated": {
-                                "type": "integer"
                             }
                         }
                     },
                     "services": {
                         "type": "array",
                         "items": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "poolingWoT": {
-                "type": "object",
-                "properties": {
-                    "lastArrowHeadCall": {
-                        "type": "object",
-                        "properties": {
-                            "timestamp": {
-                                "type": "string"
-                            },
-                            "servicesCreated": {
-                                "type": "integer"
-                            },
-                            "servicesUpdated": {
-                                "type": "integer"
-                            }
+                            "type": "integer"
                         }
                     },
-                    "devices": {
+                    "monitoredServicesNames": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         }
                     }
                 }
-            },
-            "poolingManagement": {
-                "type": "object",
-                "properties": {
-                    "poolingArrowHead": {
-                        "$ref": "#/components/schemas/poolingArrowHead"
-                    },
-                    "poolingWoT": {
-                        "$ref": "#/components/schemas/poolingWoT"
+            }
+        },
+        "poolingWoT": {
+            "type": "object",
+            "properties": {
+                "lastWoTRepositoryCall": {
+                    "type": "object",
+                    "properties": {
+                        "timestamp": {
+                            "type": "string"
+                        },
+                        "devicesCreated": {
+                            "type": "integer"
+                        },
+                        "devicesUpdated": {
+                            "type": "integer"
+                        }
                     }
+                },
+                "devices": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "mode": {
+                    "type": "string"
+                }
+            }
+        },
+        "poolingManagement": {
+            "type": "object",
+            "properties": {
+                "poolingArrowHead": {
+                    "$ref": "#/components/schemas/poolingArrowHead"
+                },
+                "poolingWoT": {
+                    "$ref": "#/components/schemas/poolingWoT"
                 }
             }
         }

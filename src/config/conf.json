@@ -15,7 +15,7 @@
         "port": 3333
     },
     "mode": {
-        "arrowheadAdapter": false,
+        "arrowheadAdapter": true,
         "wotAdapter": true,
         "wotRepository": "wot"
     },

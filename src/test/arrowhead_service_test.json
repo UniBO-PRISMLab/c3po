@@ -1,0 +1,76 @@
+{
+    "id": 3012,
+    "serviceDefinition": {
+        "id": 314,
+        "serviceDefinition": "provaservice",
+        "createdAt": "2021-02-06 10:45:05",
+        "updatedAt": "2021-02-06 10:45:05"
+    },
+    "provider": {
+        "id": 307,
+        "systemName": "provaservice",
+        "address": "http://localhost",
+        "port": 8080,
+        "createdAt": "2021-02-17 16:30:06",
+        "updatedAt": "2021-02-17 16:30:06"
+    },
+    "serviceUri": "api/stuff",
+    "endOfValidity": "2021-02-01 23:59:59",
+    "secure": "NOT_SECURE",
+    "metadata": {
+        "openApi": {
+            "openapi": "3.0.1",
+            "info": {
+                "title": "Gas Sensor",
+                "description": "a simple gas sensor",
+                "version": "1.0.0"
+            },
+            "servers": [
+                {
+                    "url": "https://137.204.57.93:8888"
+                }
+            ],
+            "paths": {
+                "/gas-sensor-status": {
+                    "get": {
+                        "description": "returns the status of the gas sensor",
+                        "responses": {
+                            "200": {
+                                "description": "successful operation",
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "humidity": {
+                                                    "type": "number"
+                                                },
+                                                "resistance": {
+                                                    "type": "number"
+                                                },
+                                                "temperature": {
+                                                    "type": "number"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "version": 0,
+    "interfaces": [
+        [
+            "Object"
+        ]
+    ],
+    "createdAt": "2021-03-19 12:33:39",
+    "updatedAt": "2021-03-19 12:33:39"
+}

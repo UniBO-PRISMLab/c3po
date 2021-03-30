@@ -1,7 +1,16 @@
 const logger = require('../logger');
 
-module.exports = (wsdl) => {
-    //console.info(wsdl);
+const getSchema = (openApiPath) => {
+    if (openApiPath.get.responses)
+        if (openApiPath.get.responses["200"])
+            if (openApiPath.get.responses["200"].content["application/json"])
+                if (openApiPath.get.responses["200"].content["application/json"].schema)
+                    return openApiPath.get.responses["200"].content["application/json"].schema;
+    return false;
+}
+
+module.exports = (arrowHeadService, openApi) => {
+    //const openApi = arrowHeadService.openApi;
     const td = {
         //
         "@context": [
@@ -10,44 +19,44 @@ module.exports = (wsdl) => {
                 "@language": "en"
             }
         ],
-        title: wsdl.service.name,
+        //openApi.info.title
+        id: arrowHeadService.id,
+        title: openApi.info.title,
         "securityDefinitions": {
             "nosec_sc": {
                 "scheme": "nosec"
             }
         },
         "security": "nosec_sc",
+        "description": openApi.info.description,
         //GET endpoints are read-only
         //GET and PUT endpoints are writable properties
         properties: {},
+
         //POST  are actions
-        actions: {}
+        //actions: {}
     };
-    //only one property per wsdl??
-    if (wsdl.types['element'] !== undefined) {
-        td.properties[wsdl.types.element.name] = {
-            readOnly: true,
-            //TODO: parse type
-            type: wsdl.types.element.type
+
+    const serviceUrl = `${arrowHeadService.provider.address}:${arrowHeadService.provider.port}`;
+
+    for (const pathRaw in openApi.paths) {
+        const path = pathRaw.replace('/', '');
+        const application = "application/json";
+        if ("get" in openApi.paths[pathRaw]) {
+            td.properties[path] = {
+                readOnly: true
+            };
+            if ("get" in openApi.paths[pathRaw] && "put" in openApi.paths[pathRaw])
+                td.properties[path].readOnly = false;
+            if ("description" in openApi.paths[pathRaw]["get"])
+                td.properties[path].description = openApi.paths[pathRaw]["get"].description;
+
+            const schema = getSchema(openApi.paths[pathRaw]);
+            if (schema && schema.type)
+                td.properties[path].type = schema.type;
         }
     }
 
-    //TODO: that binding does not make sense! 
-    wsdl.interface.operation.forEach(operation => {
-        if (operation["name"] !== undefined) {
-
-            td.actions[operation["name"]] = {
-                description: "",
-                uriVariables: {},
-            }
-            //TODO: check correct way to determine uriVariables
-            //td.actions[operation["name"]].uriVariables[operation.input.element] = {
-            //"type": td["properties"][operation.output.element]["type"]
-            // }
-        } else {
-            logger.error(`ArrowHead WSDL ${wsdl.service.name} operation property does not have the correct format`);
-        }
-    });
-
-    return td;
+    //TODO: add actions and improve the openapi translation
+    return {td: td, serviceUrl: serviceUrl };
 }

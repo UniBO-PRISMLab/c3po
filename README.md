@@ -32,17 +32,7 @@ $ npm run start
 
 ## Test
 
-to test if the WoT-ArrowHead Adapter is running correctly, check your browser at <http://localhost:3334>, the response should be:
-
-```json
-{
-    "status": "ArrowHead API Its Working",
-    "message": "ArrowHead version 1.0.0 is running",
-    "description": "The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHEad services into Web Things"
-}
-```
-
-## API Documentation
+to test if the WoT-ArrowHead Adapter is running correctly, check your browser at <http://localhost:3334>, the response should be:https://gartic.com.br/034893573
 
 The project API documentation can be consulted at <http://localhost:3334/docs-api> once the application is running.
 
@@ -86,3 +76,12 @@ The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](
   * wotAdapter: true if you want to instantiate Web Things asArrowHead services, false otherwise.
   * wotRepository: the two modes are "modron" or "wot". Use wot if you are not using modron server.
 * logLevel: the log level of the adapter. The default is "info", choose "debug" for more details or "warning" for less.
+
+### Modron Usage
+
+To connect the adapter with Modron, it is necessary to create a .env file in /src containing the user and password for the given modron server.
+
+```
+MODRON_PASSWORD= <MODRON PASSWORD>
+MODRON_USER= <MODRON USER>
+```

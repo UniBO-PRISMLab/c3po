@@ -19,13 +19,14 @@ const queryService = async (thing) => {
     const arrowHeadRequest = axios.post(`${arrowHeadHost}/serviceregistry/query`,
         payload,
         { headers });
-    return arrowHeadRequest.then(response => response.data).catch(resultHandler.errorHandler);
+    return arrowHeadRequest.then(response => {
+        return response.data
+    }).catch(resultHandler.errorHandler);
 }
 
 
 const registerService = async (thing) => {
     const payload = deviceRegisterFactory(thing);
-    console.log(payload);
     const headers = headerFactory.post();
     const arrowHeadRequest = axios.post(`${arrowHeadHost}/serviceregistry/register`,
         payload,

@@ -1,4 +1,5 @@
 const logger = require('../logger');
+const gConfig = require('../config/conf.json')
 
 class ModronMetadata {
     constructor() {
@@ -8,6 +9,7 @@ class ModronMetadata {
             devicesUpdated: 0
         }
         this.devices = [];
+        this.mode = gConfig.mode.wotRepository;
     }
 
     setTimestamp(timestamp) {

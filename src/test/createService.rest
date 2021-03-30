@@ -1,0 +1,30 @@
+POST http://137.204.57.93:8443/serviceregistry/register
+Content-Type: application/json
+
+{
+   "endOfValidity":"2031-01-01 23:59:59",
+   "interfaces":[
+      "HTTPS-SECURE-JSON"
+   ],
+   "metadata":{
+      "additionalProp1":"http://localhost:8888"
+   },
+   "providerSystem":{
+      "address":"http://137.204.57.93",
+      "port": 8888,
+      "systemName":"adapter-tester"
+   },
+   "secure":"NOT_SECURE",
+   "serviceDefinition":"gas-sensor",
+   "serviceUri":"gas-sensor-status",
+   "version":0
+}
+
+################################
+
+POST http://localhost:3334/arrowhead
+Content-Type: application/json
+
+{"systemName": "adapter-tester"}
+
+### 

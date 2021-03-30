@@ -20,15 +20,6 @@ server.start()
     logger.error(err);
   });
 
-if (gConfig.mode.wotAdapter)
-  wotServer.startServient()
-    .then(() => {
-      logger.info(`WoT Servient is up and running`)
-    }).catch((err) => {
-      logger.error(err);
-    });
-
-
 getAuth()
   .then(() => {
     if (gConfig.mode.wotAdapter)
@@ -42,5 +33,3 @@ getAuth()
   }).catch(err => {
     logger.error(err);
   });
-
-

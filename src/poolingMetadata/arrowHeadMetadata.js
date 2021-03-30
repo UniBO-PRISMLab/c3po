@@ -4,42 +4,51 @@ class ArrowHeadMetadata {
     constructor() {
         this.lastArrowHeadCall = {
             timestamp: "never",
-            servicesCreated: 0,
-            servicesUpdated: 0
+            servicesCreated: 0
         }
         this.services = [];
+        this.monitoredServicesNames = []; //'adapter-tester'
     }
 
     setTimestamp(timestamp) {
         logger.info(`new call to ArrowHead at ${timestamp}`);
+        logger.debug(`resetting created services`);
+        this.lastArrowHeadCall.servicesCreated = 0;
         this.lastArrowHeadCall.timestamp = timestamp;
     }
 
-    setServicesCreated(servicesCreated) {
-        this.lastArrowHeadCall.servicesCreated = servicesCreated;
-
+    setServices(service) {
+        this.services = service;
     }
 
-    setServicesUpdated(servicesUpdated) {
-        this.lastArrowHeadCall.servicesUpdated = servicesUpdated;
+    addService(service) {
+        this.lastArrowHeadCall.servicesCreated++;
+        this.services.push(service);
     }
 
-    setServices(services) {
-        this.services = services;
+    deleteService(service) {
+        this.services.pop(service);
     }
 
-    addDevice(device) {
-        this.services.push(device);
+    existService(service) {
+        return this.services.includes(service);
     }
-
-    deleteDevice(device) {
-        this.services.pop(device);
-    }
-
-
     getServices() {
         return this.services;
     }
+
+    getMonitoredServicesNames(){
+        return this.monitoredServicesNames;
+    }
+
+    addMonitoredService(service){
+        this.monitoredServicesNames.push(service);
+    }
+
+    isMonitoredService(service){
+        return this.monitoredServicesNames.includes(service);
+    }
+
 
     get() {
         return this;
