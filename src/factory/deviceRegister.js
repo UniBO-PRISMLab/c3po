@@ -25,7 +25,7 @@ module.exports = (thing) => {
         },
         secure: "NOT_SECURE",
         serviceDefinition: thing.td.title,
-        serviceUri: uri,
+        serviceUri: uri.replace("/", ""),
         version: 0
     }
 }

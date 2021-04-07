@@ -4,7 +4,9 @@ const logger = require('./logger')
 const arrowHeadRequests = require('./repositories/arrowHeadRequests');
 const wotCreator = require('./wotCreator')
 const tdFactory = require('./factory/tdFactory');
+const gConfig = require('./config/conf.json')
 const openApiRequest = require('./repositories/openApiRequest');
+const modronRequests = require('./repositories/modronRequests')
 const arrowHeadMetadata = require('./poolingMetadata/arrowHeadMetadata')
 
 const arrowheadToModron = async () => {
@@ -20,6 +22,12 @@ const arrowheadToModron = async () => {
         wotCreator.createThing(td).then(() => {
             logger.info(`adding ${td.title} id < ${filteredServices[index].id} > as an already instantiated Web Thing`);
             arrowHeadMetadata.addService(filteredServices[index].id);
+            //logger.info(`http://${gConfig.wot.host}:${gConfig.wot.port}/${td.td.title.toLowerCase().replace(" ","-")}`);
+            /* const modronResponse = await  */
+            modronRequests
+                .registerNewThing(`http://${gConfig.wot.host}:${gConfig.wot.port}/${td.td.title.toLowerCase().replace(" ", "-")}`)
+                .then(response => { logger.info(response); })
+                .catch(error => { logger.error(error); });
         }).catch((err) => {
             logger.error(err)
         });

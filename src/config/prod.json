@@ -4,7 +4,8 @@
         "port": 8443
     },
     "modron": {
-        "host": "api.modron.network"
+        "host": "api.modron.network",
+        "host2": "arces143100.arces.unibo.it"
 
     },
     "poolingInterval": 30

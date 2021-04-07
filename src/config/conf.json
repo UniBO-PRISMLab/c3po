@@ -4,20 +4,21 @@
         "port": 8443
     },
     "wotRepository": {
-        "host": "arces143100.arces.unibo.it",
+        "host": "api.modron.network",
         "port": 8080
     },
-    "poolingInterval": 10,
+    "poolingInterval": 30,
     "adapter": {
         "port": 3334
     },
     "wot": {
+        "host": "localhost",
         "port": 3333
     },
     "mode": {
         "arrowheadAdapter": true,
         "wotAdapter": true,
-        "wotRepository": "wot"
+        "wotRepository": "modron"
     },
     "logLevel":"info"
 }

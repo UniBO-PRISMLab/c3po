@@ -59,15 +59,16 @@ const successHandler = (response) => {
     logger.debug(response);
     return response.data;
 }
-//WIP
+
 const deleteService = async (thing) => {
     const headers = headerFactory.delete()
-    return arrowHeadRequest = axios.delete(`${arrowHeadHost}/serviceregistry/unregister?address=${addressTemp}&port=${portTemp}&service_definition=${serviceDefinitionTemp}&system_name=${nameTemp}`, { headers })
+    return arrowHeadRequest = axios.delete(`${arrowHeadHost}/serviceregistry/mgmt/${thing.id}`, { headers })
 }
 
 module.exports = {
     queryService,
     registerService,
     updateService,
-    getAllServices
+    getAllServices,
+    deleteService
 }
