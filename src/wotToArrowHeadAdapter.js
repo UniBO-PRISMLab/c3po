@@ -77,8 +77,6 @@ const iterateArrowHeadResponse = (arrowHeadResponse, allWebThings) => {
       poolingMetadata.setDevicesUpdated(devicesUpdated);
     }
   })
-
-
 }
 
 module.exports = {

@@ -7,8 +7,7 @@ Content-Type: application/json
       "HTTPS-SECURE-JSON"
    ],
    "metadata":{
-      "additionalProp1":"http://localhost:8888",
-      "additionalProp2":"wot-adataple"
+      "additionalProp1":"http://137.204.57.93:8889/api-docs"
    },
    "providerSystem":{
       "address":"http://137.204.57.93",
@@ -30,5 +29,5 @@ Content-Type: application/json
 
 ### 
 
-DELETE http://137.204.57.93:8443/serviceregistry/mgmt/3053
+DELETE http://137.204.57.93:8443/serviceregistry/mgmt/3085
 Accept: application/json

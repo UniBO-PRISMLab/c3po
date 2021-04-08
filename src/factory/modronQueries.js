@@ -9,6 +9,19 @@ const login = () => {
   };
 }
 
+const deleteThing = (id) => {
+
+  return {
+    query: `
+    mutation {
+      deleteThing(
+        id:"${id}"
+        ){
+          id
+        }
+    }`
+  }
+}
 const registerThing = (url) => {
   return {
     query: `
@@ -54,5 +67,6 @@ const getAll = () => {
 module.exports = {
   login,
   getAll,
-  registerThing
+  registerThing,
+  deleteThing
 };

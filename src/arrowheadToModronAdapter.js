@@ -19,13 +19,12 @@ const arrowheadToModron = async () => {
 
     const tds = filteredServices.map((service, i) => tdFactory(service, openApi[i]));
 
-
-    tds.map((td, index) => {
-        wotCreator.createThing(td).then(() => {
-            logger.info(`adding ${td.td.title} id < ${filteredServices[index].id} > as an already instantiated Web Thing`);
+    tds.map((completeTd, index) => {
+        wotCreator.createThing(completeTd).then(() => {
+            logger.info(`adding ${completeTd.td.title} as an already instantiated Web Thing`);
             arrowHeadMetadata.addService(filteredServices[index].id);
             modronRequests
-                .registerNewThing(`http://${gConfig.wot.host}:${gConfig.wot.port}/${td.td.title.toLowerCase().replace(" ", "-")}`)
+                .registerNewThing(`http://${gConfig.wot.host}:${gConfig.wot.port}/${completeTd.td.title.toLowerCase().replace(" ", "-")}`)
                 .then(response => { logger.info(response); })
                 .catch(error => { logger.error(error); });
         }).catch((err) => {
