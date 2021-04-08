@@ -28,7 +28,7 @@ module.exports = (arrowHeadService, openApi) => {
                 "scheme": "nosec"
             }
         },
-        "security": "nosec_sc",
+        "security": ["nosec_sc"],
         "description": openApi.info.description,
         //GET endpoints are read-only
         //GET and PUT endpoints are writable properties
