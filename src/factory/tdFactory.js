@@ -22,7 +22,7 @@ module.exports = (arrowHeadService, openApi) => {
         //openApi.info.title
         // urn:dev:ops:32473-WoTLamp-1234
         id: `urn:dev:${arrowHeadService.id.toString()}-${openApi.info.title.toLowerCase().replace(" ", "-")}`,
-        title: openApi.info.title,
+        title: openApi.info.title.toLowerCase().replace(" ", "-"),
         "securityDefinitions": {
             "nosec_sc": {
                 "scheme": "nosec"
