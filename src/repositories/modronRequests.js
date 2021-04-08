@@ -45,12 +45,15 @@ const registerNewThing = async (tdURL) => {
     const headers = headerFactory.postAuth(token.value);
     const response = await sendRequest(query, { headers });
     //maybe response.data.createThing
-    return response.data;
+    return response;
 }
 
 const sendRequest = async (payload, axiosConfig) => {
     const modronRequest = axios.post(`${modronAddress}/graphql`, payload, axiosConfig);
-    return modronRequest.then(response => response.data).catch(resultHandler.errorHandler);
+    return modronRequest.then(response => { 
+        logger.info(response);
+        return response.data;
+    }).catch(resultHandler.errorHandler);
 }
 
 module.exports = {
