@@ -20,7 +20,7 @@ module.exports = (arrowHeadService, openApi) => {
             }
         ],
         //openApi.info.title
-        id: arrowHeadService.id,
+        id: arrowHeadService.id.toString(),
         title: openApi.info.title,
         "securityDefinitions": {
             "nosec_sc": {
