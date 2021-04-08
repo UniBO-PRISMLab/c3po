@@ -130,7 +130,7 @@
                 }
             }
         },
-        "poolingWoT": {
+        "wotRepository": {
             "type": "object",
             "properties": {
                 "lastWoTRepositoryCall": {
@@ -164,8 +164,8 @@
                 "poolingArrowHead": {
                     "$ref": "#/components/schemas/poolingArrowHead"
                 },
-                "poolingWoT": {
-                    "$ref": "#/components/schemas/poolingWoT"
+                "wotRepository": {
+                    "$ref": "#/components/schemas/wotRepository"
                 }
             }
         }

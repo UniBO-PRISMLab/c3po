@@ -34,8 +34,9 @@ const getToken = async () => {
 const getWebThings = async () => {
     const query = modronQueriesFactory.getAll();
     const headers = headerFactory.postAuth(token.value);
+
     const response = await sendRequest(query, { headers });
-    console.log(response.data.viewer.things[0].tdURL)
+    logger.debug(response.data.viewer.things[0].tdURL)
     return response.data.viewer.things;
 }
 

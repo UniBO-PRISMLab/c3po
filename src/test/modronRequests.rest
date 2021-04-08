@@ -1,0 +1,38 @@
+POST https://api.modron.network:8080/graphql
+Accept: application/json
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJja2t3Z2J1N2QzNDUwMWJsNGhyaW9icnVmIiwiaWF0IjoxNjE3ODk0NjYxLCJleHAiOjE2MTg0OTk0NjF9.i5TvbavgcZu7hp3RuL7jG0HXKUj0ZCSz2Dnni3dhZps"
+
+query: "query{
+      viewer{
+        id
+        things{
+          id
+          td
+          title
+          description
+          type
+          lat
+          lng
+          tdURL
+          private
+          owner{
+            id 
+            username
+          }
+          tags {
+            id
+            name
+          }
+          createdAt
+          updatedAt
+        }
+      }
+    }"
+
+
+curl --request GET \
+  --url https://api.modron.network:8080/ \
+  --header 'accept: "application/json"' \
+  --header 'authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJja2t3Z2J1N2QzNDUwMWJsNGhyaW9icnVmIiwiaWF0IjoxNjE3ODk0NjYxLCJleHAiOjE2MTg0OTk0NjF9.i5TvbavgcZu7hp3RuL7jG0HXKUj0ZCSz2Dnni3dhZps"' \
+  --header 'user-agent: vscode-restclient' \
+  --data 'query: "query{viewer{idthings{idtdtitledescriptiontypelatlngtdURLprivateowner{idusername}tags {idname}createdAtupdatedAt}}}"'
