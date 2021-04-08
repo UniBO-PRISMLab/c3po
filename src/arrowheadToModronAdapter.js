@@ -22,7 +22,7 @@ const arrowheadToModron = async () => {
 
     tds.map((td, index) => {
         wotCreator.createThing(td).then(() => {
-            logger.info(`adding ${td.title} id < ${filteredServices[index].id} > as an already instantiated Web Thing`);
+            logger.info(`adding ${td.td.title} id < ${filteredServices[index].id} > as an already instantiated Web Thing`);
             arrowHeadMetadata.addService(filteredServices[index].id);
             modronRequests
                 .registerNewThing(`http://${gConfig.wot.host}:${gConfig.wot.port}/${td.td.title.toLowerCase().replace(" ", "-")}`)
