@@ -26,6 +26,7 @@ const queryService = async (thing) => {
 
 
 const registerService = async (thing) => {
+    logger.info(`registering ${thing.title} in arrowhead...`);
     const payload = deviceRegisterFactory(thing);
     const headers = headerFactory.post();
     const arrowHeadRequest = axios.post(`${arrowHeadHost}/serviceregistry/register`,
@@ -36,12 +37,9 @@ const registerService = async (thing) => {
 
 
 const updateService = async (thing, id) => {
-    const payload = deviceRegisterFactory(thing);
-    const headers = headerFactory.put()
-    const arrowHeadRequest = axios.put(`${arrowHeadHost}/serviceregistry/mgmt/${id}`,
-        payload,
-        { headers });
-    return arrowHeadRequest.then(response => response.data).catch(resultHandler.errorHandler);
+    const message = await deleteService({id: id});
+    logger.info(message);
+    return await registerService(thing);
 }
 
 const getAllServices = () => {
@@ -61,8 +59,10 @@ const successHandler = (response) => {
 }
 
 const deleteService = async (thing) => {
+    logger.info(`deleting ${thing.id} from arrowhead...`)
     const headers = headerFactory.delete()
-    return arrowHeadRequest = axios.delete(`${arrowHeadHost}/serviceregistry/mgmt/${thing.id}`, { headers })
+    const arrowHeadRequest = axios.delete(`${arrowHeadHost}/serviceregistry/mgmt/${thing.id}`, { headers });
+    return arrowHeadRequest.then(response => response.data).catch(resultHandler.errorHandler);
 }
 
 module.exports = {
