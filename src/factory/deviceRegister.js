@@ -2,7 +2,6 @@ const hasher = require('../hasher')
 const gConfig = require('../config/conf.json')
 
 module.exports = (thing) => {
-    //console.log(thing);
     const url = new URL(thing.tdURL);
     const hostname = url.hostname;
     const port = url.port;

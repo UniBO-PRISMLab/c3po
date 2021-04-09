@@ -29,5 +29,27 @@ Content-Type: application/json
 
 ### 
 
-DELETE http://137.204.57.93:8443/serviceregistry/mgmt/3085
+DELETE http://137.204.57.93:8443/serviceregistry/mgmt/3033
 Accept: application/json
+
+### 
+POST http://137.204.57.93:8443/serviceregistry/query
+Content-Type: application/json
+
+
+{
+        "serviceDefinitionRequirement": "gas-sensor"
+}
+
+####
+POST http://137.204.57.93:8443/serviceregistry/query
+Content-Type: application/json
+
+{
+  "metadataRequirements": {
+    "additionalProp1": "http://137.204.57.93:8889/api-docs"
+  }
+}
+
+####
+GET http://137.204.57.93:8443/serviceregistry/mgmt/3033

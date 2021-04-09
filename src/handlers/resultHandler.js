@@ -10,7 +10,7 @@ const errorHandler = (error) => {
       \nheaders:${util.inspect(error.response.headers)}
       \nURL: ${util.inspect(error.response.config.url)}`);
   } else if (error.request) {
-    logger.debug(error.request);
+    logger.debug(error);
     return Promise.reject(
       new Error(`The request was made but no response was received `
         // \n${util.inspect(error.request)}

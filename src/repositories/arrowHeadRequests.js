@@ -37,7 +37,7 @@ const registerService = async (thing) => {
 
 
 const updateService = async (thing, id) => {
-    const message = await deleteService({id: id});
+    const message = await deleteService({ id: id });
     logger.info(message);
     return await registerService(thing);
 }
