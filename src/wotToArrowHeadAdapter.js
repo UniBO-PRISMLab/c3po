@@ -66,7 +66,8 @@ const iterateArrowHeadResponse = (arrowHeadResponse, allWebThings) => {
         .then((res) => {
           poolingMetadata.addDevice(allWebThings[i].td.title);
           devicesCreated++;
-          logger.info(res);
+          logger.info(`Thing ${allWebThings[i].td.title} successfully register in arrowhead`);
+          logger.debug(res);
         })
         .catch((err) => logger.error(err));
     }
