@@ -17,24 +17,24 @@ const wotToArrowHead = async () => {
   poolingMetadata.setTimestamp(new Date().toUTCString());
 
   const allWebThings = await Promise.all(webThingList.map(wotRequests.getWebThing));
-  const arrowHeadResponse = await Promise.all(allWebThings.map( arrowHeadRequests.queryService(thing)));
+  const arrowHeadResponse = await Promise.all(allWebThings.map(arrowHeadRequests.queryService(thing)));
   await iterateArrowHeadResponse(arrowHeadResponse, allWebThings);
 }
 
 const modronToArrowHead = async () => {
-/*   const deleteThing = await modronRequests.deleteThing("ckn97hvky245311bl4tlteys6a");
-  process.exit(); */
+  /*   const deleteThing = await modronRequests.deleteThing("ckn97hvky245311bl4tlteys6a");
+    process.exit(); */
   const allWebThings = await modronRequests.getWebThings();
- // allWebThings.forEach(console.log)
+  // allWebThings.forEach(console.log)
 
   poolingMetadata.setTimestamp(new Date().toUTCString());
 
   //query the modron WebThings in ArrowHead
-  const arrowHeadResponse = await Promise.all(allWebThings.map(async thing =>  { 
+  const arrowHeadResponse = await Promise.all(allWebThings.map(async thing => {
     let arrowHeadService = await arrowHeadRequests.queryService(thing);
     arrowHeadService.serviceQueryData = arrowHeadService.serviceQueryData.filter(serviceQueryData);
     return arrowHeadService;
-  })); 
+  }));
   //const arrowHeadResponse = await Promise.all(allWebThings.map(arrowHeadRequests.queryService));
 
   await iterateArrowHeadResponse(arrowHeadResponse, allWebThings);
@@ -73,13 +73,12 @@ const iterateArrowHeadResponse = (arrowHeadResponse, allWebThings) => {
     //if the Thing exists, but the TDs don't match, update the arrowhead TD
     else if (!compareThings(allWebThings[i].td, arrowHeadThing)) {
       logger.info(`Thing ${allWebThings[i].td.title} Thing Description does not match the existing one in ArrowHead`)
-
-      /*       arrowHeadRequests.updateService(allWebThings[i], arrowHeadThing.serviceQueryData[0].id)
-              .then((res) => {
-                devicesUpdated++;
-                logger.info(res);
-              })
-              .catch((err) => logger.error(err)); */
+      arrowHeadRequests.updateService(allWebThings[i], arrowHeadThing.serviceQueryData[0].id)
+        .then((res) => {
+          devicesUpdated++;
+          logger.info(res);
+        })
+        .catch((err) => logger.error(err));
     } else {
       if (!poolingMetadata.getDevices().includes(allWebThings[i].td.title))
         poolingMetadata.addDevice(allWebThings[i].td.title);
