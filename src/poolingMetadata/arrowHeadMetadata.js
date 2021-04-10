@@ -7,7 +7,7 @@ class ArrowHeadMetadata {
             servicesCreated: 0
         }
         this.services = [];
-        this.monitoredServicesNames = ['adapter-tester']; //'adapter-tester'
+        this.monitoredServicesNames = []; //'adapter-tester'
     }
 
     setTimestamp(timestamp) {

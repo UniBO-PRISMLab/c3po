@@ -22,7 +22,11 @@ const wotToArrowHead = async () => {
 }
 
 const modronToArrowHead = async () => {
+/*   const deleteThing = await modronRequests.deleteThing("ckn97hvky245311bl4tlteys6a");
+  process.exit(); */
   const allWebThings = await modronRequests.getWebThings();
+ // allWebThings.forEach(console.log)
+
   poolingMetadata.setTimestamp(new Date().toUTCString());
 
   //query the modron WebThings in ArrowHead

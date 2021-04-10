@@ -1,7 +1,7 @@
 const swagger = require('../api.schema.json')
 
 module.exports = (router) => {
-    router.route("/swagger.json").get((req, res) => {
+    router.route("/").get((req, res) => {
       try {
         res.json(swagger);
       } catch (err) {

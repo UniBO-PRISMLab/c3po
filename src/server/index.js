@@ -9,13 +9,12 @@ const apiSchema = require("../api.schema.json")
 
 const swaggerUi = require('swagger-ui-express');
 const OpenApiValidator = require('express-openapi-validator')
-//import { OpenApiValidator } from 'express-openapi-validator';
 
 
 const docsSetup = async () => {
     const options = {
         swaggerOptions: {
-            url: 'http://localhost:3334/api-docs/swagger.json'
+            url: 'http://localhost:3334/openapi'
         }
     };
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(null, options));

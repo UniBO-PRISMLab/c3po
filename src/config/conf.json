@@ -16,7 +16,7 @@
         "port": 3333
     },
     "mode": {
-        "arrowheadAdapter": true,
+        "arrowheadAdapter": false,
         "wotAdapter": true,
         "wotRepository": "modron"
     },

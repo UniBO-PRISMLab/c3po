@@ -3,7 +3,7 @@ const gConfig = require('../config/conf.json')
 
 class ModronMetadata {
     constructor() {
-        this.lastModronCall = {
+        this.lastWoTRepositoryCall = {
             timestamp: "never",
             devicesCreated: 0,
             devicesUpdated: 0
@@ -14,16 +14,16 @@ class ModronMetadata {
 
     setTimestamp(timestamp) {
         logger.info(`new call to Modron at ${timestamp}`);
-        this.lastModronCall.timestamp = timestamp;
+        this.lastWoTRepositoryCall.timestamp = timestamp;
     }
 
     setDevicesCreated(devicesCreated) {
-        this.lastModronCall.devicesCreated = devicesCreated;
+        this.lastWoTRepositoryCall.devicesCreated = devicesCreated;
 
     }
 
     setDevicesUpdated(devicesUpdated) {
-        this.lastModronCall.devicesUpdated = devicesUpdated;
+        this.lastWoTRepositoryCall.devicesUpdated = devicesUpdated;
     }
 
     setDevices(devices) {

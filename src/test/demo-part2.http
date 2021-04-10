@@ -1,0 +1,29 @@
+POST http://137.204.57.93:8443/serviceregistry/register
+Content-Type: application/json
+
+{
+   "endOfValidity":"2031-01-01 23:59:59",
+   "interfaces":[
+      "HTTPS-SECURE-JSON"
+   ],
+   "metadata":{
+      "additionalProp1":"http://177.104.61.116:8888/api-docs"
+   },
+   "providerSystem":{
+      "address":"http://177.104.61.116:8888/gas-sensor-status",
+      "port": 8888,
+      "systemName":"gas-sensor"
+   },
+   "secure":"NOT_SECURE",
+   "serviceDefinition":"gas-sensor-device",
+   "serviceUri":"gas-sensor-status",
+   "version":0
+}
+
+### 
+POST http://137.204.57.93:8443/serviceregistry/query
+Content-Type: application/json
+
+{
+    "serviceDefinitionRequirement": "gas-sensor"
+}

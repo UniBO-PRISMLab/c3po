@@ -11,7 +11,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:3334"
+            "url": "http://177.104.61.116:3334"
         }
     ],
     "paths": {
@@ -61,7 +61,7 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/poolingArrowHead"
+                                    "$ref": "#/components/schemas/poolingWoT"
                                 }
                             }
                         }
@@ -128,44 +128,44 @@
                         }
                     }
                 }
-            }
-        },
-        "wotRepository": {
-            "type": "object",
-            "properties": {
-                "lastWoTRepositoryCall": {
-                    "type": "object",
-                    "properties": {
-                        "timestamp": {
-                            "type": "string"
-                        },
-                        "devicesCreated": {
-                            "type": "integer"
-                        },
-                        "devicesUpdated": {
-                            "type": "integer"
+            },
+            "poolingWoT": {
+                "type": "object",
+                "properties": {
+                    "lastWoTRepositoryCall": {
+                        "type": "object",
+                        "properties": {
+                            "timestamp": {
+                                "type": "string"
+                            },
+                            "devicesCreated": {
+                                "type": "integer"
+                            },
+                            "devicesUpdated": {
+                                "type": "integer"
+                            }
                         }
-                    }
-                },
-                "devices": {
-                    "type": "array",
-                    "items": {
+                    },
+                    "devices": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "mode": {
                         "type": "string"
                     }
-                },
-                "mode": {
-                    "type": "string"
                 }
-            }
-        },
-        "poolingManagement": {
-            "type": "object",
-            "properties": {
-                "poolingArrowHead": {
-                    "$ref": "#/components/schemas/poolingArrowHead"
-                },
-                "wotRepository": {
-                    "$ref": "#/components/schemas/wotRepository"
+            },
+            "poolingManagement": {
+                "type": "object",
+                "properties": {
+                    "poolingArrowHead": {
+                        "$ref": "#/components/schemas/poolingArrowHead"
+                    },
+                    "wotRepository": {
+                        "$ref": "#/components/schemas/poolingWoT"
+                    }
                 }
             }
         }
