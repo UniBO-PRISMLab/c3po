@@ -7,7 +7,7 @@ const resultHandler = require('../handlers/resultHandler');
 
 const headerFactory = require('../factory/headers');
 
-const wotRepositoryAddress = `http://${gConfig.wotRepository.host}:${gConfig.wotRepository.port}`;
+const wotRepositoryAddress = `https://${gConfig.wotRepository.host}:${gConfig.wotRepository.port}`;
 
 const listWebThings = async () => {
     const headers = headerFactory.get();
