@@ -15,17 +15,13 @@ const serviceQueryData = (service) => service.provider.systemName === "modron";
 const wotToArrowHead = async () => {
   const webThingList = await wotRequests.listWebThings();
   poolingMetadata.setTimestamp(new Date().toUTCString());
-
   const allWebThings = await Promise.all(webThingList.map(wotRequests.getWebThing));
-  const arrowHeadResponse = await Promise.all(allWebThings.map(arrowHeadRequests.queryService(thing)));
+  const arrowHeadResponse = await Promise.all(allWebThings.map(arrowHeadRequests.queryService));
   await iterateArrowHeadResponse(arrowHeadResponse, allWebThings);
 }
 
 const modronToArrowHead = async () => {
-  /*   const deleteThing = await modronRequests.deleteThing("ckn97hvky245311bl4tlteys6a");
-    process.exit(); */
   const allWebThings = await modronRequests.getWebThings();
-  // allWebThings.forEach(console.log)
 
   poolingMetadata.setTimestamp(new Date().toUTCString());
 
