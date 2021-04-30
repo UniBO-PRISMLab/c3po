@@ -1,3 +1,5 @@
+[![Site: IoTPrismLab](https://img.shields.io/badge/site-IoT%20Prism%20Lab-blue)](http://iot-prism-lab.nws.cs.unibo.it/)
+
 # WoT-ArrowHead Adapter
 
 The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things.
