@@ -1,13 +1,13 @@
 {
     "arrowhead": {
-        "host": "137.204.57.93",
+        "host": "localhost",
         "port": 8443
     },
     "wotRepository": {
-        "host": "api.modron.network",
+        "host": "dicam083010.ing.unibo.it",
         "port": 8080
     },
-    "poolingInterval": 30,
+    "poolingInterval": 10,
     "adapter": {
         "port": 3334
     },
@@ -16,9 +16,12 @@
         "port": 3333
     },
     "mode": {
-        "arrowheadAdapter": false,
-        "wotAdapter": true,
-        "wotRepository": "modron"
+        "arrowheadAdapter": true,
+        "wotAdapter": false,
+        "wotRepository": "wotRepository"
     },
-    "logLevel":"info"
+    "metrics": {
+        "filename": "metrics.csv"
+    },
+    "logLevel": "info"
 }

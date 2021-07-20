@@ -52,7 +52,7 @@ Content-Type: application/json
 }
 
 ####
-GET http://137.204.57.93:8443/serviceregistry/mgmt/3099
+GET http://137.204.57.93:8443/serviceregistry/mgmt/3103
 
 ###
 DELETE http://137.204.57.93:8443/serviceregistry/mgmt/3061

@@ -1,0 +1,35 @@
+{
+    "id": 3050,
+    "serviceDefinition": {
+      "id": 304,
+      "serviceDefinition": "shm dicam tower",
+      "createdAt": "2021-01-19 14:56:20",
+      "updatedAt": "2021-01-19 14:56:20"
+    },
+    "provider": {
+      "id": 332,
+      "systemName": "modron",
+      "address": "https:://dicam083010.ing.unibo.it",
+      "port": 8080,
+      "createdAt": "2021-04-02 23:01:40",
+      "updatedAt": "2021-04-02 23:01:40"
+    },
+    "serviceUri": "Dicam-Tower",
+    "endOfValidity": "2031-01-01 23:59:59",
+    "secure": "NOT_SECURE",
+    "metadata": {
+      "additionalProp1": "{\"id\":\"urn:uuid:226b5df5-5bc2-44c2-804e-d61d1091279f\",\"@id\":\"urn:dev:serial:DICAM-Tower\",\"@type\":\"Thing\",\"forms\":[],\"links\":[{\"rel\":\"sosa:isHostedBy\",\"href\":\"https://mac4pro.s3.eu-central-1.amazonaws.com/beam.glb\",\"type\":\"model/glb\"}],\"title\":\"SHM DICAM Tower\",\"support\":\"https://site.unibo.it/mac4pro/it/persone\",\"@context\":[\"https://www.w3.org/2019/wot/td/v1\",{\"sosa\":\"https://opengeospatial.github.io/ELFIE/json-ld/sosa.jsonld\"},{\"ssn\":\"https://raw.githubusercontent.com/oeg-upm/ssn-resource-center/master/json-ld/ssnContextV2.json\"},{\"qudt\":\"http://www.qudt.org/qudt/owl/1.0.0/quantity/\"},{\"xsd\":\"http://www.w3.org/2001/XMLSchema\"},{\"san\":\"https://www.irit.fr/recherches/MELODI/ontologies/SAN.owl\"},{\"@language\":\"en\"}],\"security\":[\"basic_sc\"],\"properties\":{},\"description\":\"\",\"securityDefinitions\":{\"basic_sc\":{\"in\":\"header\",\"scheme\":\"basic\"}}}",
+      "additionalProp2": "E4k+Pnbd1nwIHfTyFb7hTQ=="
+    },
+    "version": 0,
+    "interfaces": [
+      {
+        "id": 4,
+        "interfaceName": "HTTPS-SECURE-JSON",
+        "createdAt": "2020-12-26 11:02:03",
+        "updatedAt": "2020-12-26 11:02:03"
+      }
+    ],
+    "createdAt": "2021-04-06 13:14:59",
+    "updatedAt": "2021-04-06 13:14:59"
+  }
