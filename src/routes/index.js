@@ -7,8 +7,8 @@ module.exports = (app) => {
 
   app.get("/", (req, res) =>
     res.json({
-      status: "ArrowHead API Its Working",
-      message: `ArrowHead version ${package.version} is running`,
+      status: "Arrowhead API Its Working",
+      message: `Arrowhead version ${package.version} is running`,
       description: package.description
     })
   );
