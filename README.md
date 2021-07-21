@@ -1,8 +1,8 @@
 [![Site: IoTPrismLab](https://img.shields.io/badge/site-IoT%20Prism%20Lab-blue)](http://iot-prism-lab.nws.cs.unibo.it/)
 
-# WoT-ArrowHead Adapter
+# WoT-Arrowhead Adapter
 
-The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things.
+The WoT-Arrowhead Adapter converts Web Things to Arrowhead services and converts Arrowhead services into Web Things.
 
 ## Usage with Docker
 
@@ -34,12 +34,12 @@ $ npm run start
 
 ## Test
 
-to test if the WoT-ArrowHead Adapter is running correctly, check your browser at <http://localhost:3334>, the response should be:
+to test if the WoT-Arrowhead Adapter is running correctly, check your browser at <http://localhost:3334>, the response should be:
 ```json
 {
-   "status":"ArrowHead API Its Working",
-   "message":"ArrowHead version 1.0.0 is running",
-   "description":"The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things"
+   "status":"Arrowhead API Its Working",
+   "message":"Arrowhead version 1.0.0 is running",
+   "description":"The WoT-Arrowhead Adapter converts Web Things to Arrowhead services and converts Arrowhead services into Web Things"
 }
 ```
 
@@ -47,7 +47,7 @@ The project API documentation can be consulted at <http://localhost:3334/docs-ap
 
 ## Configuration
 
-The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](src/config/conf.json)
+The WoT-Arrowhead Adapter configurations are defined in the [config.json file](src/config/conf.json)
 
 
 ```json
@@ -75,14 +75,14 @@ The WoT-ArrowHead Adapter configurations are defined in the  [config.json file](
     "logLevel":"info"
 }
 ```
-* arrowhead: configure the IP address and port for the ArrowHead Service Registry
+* arrowhead: configure the IP address and port for the Arrowhead Service Registry
 * wotRepository: configure the IP address and port for the WoT Repository. It can be a list of Web Things defined according to the [W3C WoT specification](https://w3c.github.io/wot-discovery/) or the [Modron](https://api.modron.network/graphql) server address.
 * poolingInterval: the interval in seconds to pool from arrowhead server and from the wot repository.
-* adapter: the port that the WoT-ArrowHead Adapter will run execute.
+* adapter: the port that the WoT-Arrowhead Adapter will run execute.
 * wot: the port for accessing the Web Things created.
-* mode: specific configurations of the WoT-ArrowHead Adapter
-  * arrowheadAdapter: true if you want to instantiate ArrowHead services as Web Things, false otherwise.
-  * wotAdapter: true if you want to instantiate Web Things asArrowHead services, false otherwise.
+* mode: specific configurations of the WoT-Arrowhead Adapter
+  * arrowheadAdapter: true if you want to instantiate Arrowhead services as Web Things, false otherwise.
+  * wotAdapter: true if you want to instantiate Web Things Arrowhead services, false otherwise.
   * wotRepository: the two modes are "modron" or "wot". Use wot if you are not using modron server.
 * logLevel: the log level of the adapter. The default is "info", choose "debug" for more details or "warning" for less.
 
@@ -94,3 +94,4 @@ To connect the adapter with Modron, it is necessary to create a .env file in /sr
 MODRON_PASSWORD= <MODRON PASSWORD>
 MODRON_USER= <MODRON USER>
 ```
+{"mode":"full","isActive":false}
