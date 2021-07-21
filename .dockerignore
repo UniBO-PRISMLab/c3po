@@ -21,7 +21,4 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
-**/metrics.csv
-**/test
-
 README.md
