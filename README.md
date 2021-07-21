@@ -2,7 +2,7 @@
 
 # WoT-Arrowhead Adapter
 
-The WoT-Arrowhead Adapter converts Web Things to Arrowhead services and converts Arrowhead services into Web Things.
+The WoT-Arrowhead Adapter (WAE) converts Web Things to Arrowhead services and converts Arrowhead services into Web Things.
 
 ## Usage with Docker
 
@@ -16,9 +16,18 @@ You can check your current **Docker** version using the following commands:
 $ docker version
 ```
 
-In order to instantiate the container run the following commands with admin privileges:
+WAE has a docker image ready to be used publically available in [DockerHub](https://hub.docker.com/repository/docker/ivanzy/wot-arrowhead-enabler). In order to instantiate the container run the following commands with admin privileges:
 
 ```console
+$ docker pull ivanzy/wot-arrowhead-enabler
+$ docker run -p 3333:3333 -p 3334:3334 ivanzy/wot-arrowhead-enabler
+```
+
+It is also possible to build and run the container from the project directory;
+
+```console
+$ git clone https://github.com/UniBO-PRISMLab/wot-arrowhead-adapter
+$ cd wot-arrowhead-adapter/
 $ docker build -t wot-arrowhead-adapter:1.0 .
 $ docker run -p 3333:3333 -p 3334:3334 --name wot-arrowhead-adapter wot-arrowhead-adapter:1.0 
 ```
