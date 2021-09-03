@@ -10,23 +10,25 @@ const arrowHeadMetadata = require("./poolingMetadata/arrowHeadMetadata");
 const metrics = require("./metrics/processTimestamp");
 
 const arrowheadToModron = async () => {
-  logger.info("ArrowHead WoT Adapter running...");
+  logger.info("Arrowhead WoT Adapter running...");
   const allServices = (await arrowHeadRequests.getAllServices()).data;
 
   const filteredServices = allServices.filter((service) => {
     metrics.setArrowheadCallTimestamp(service.id);
     return "systemName" in service.provider
-      ? arrowHeadMetadata.isMonitoredService(service.provider.systemName) &&
+      ? arrowHeadMetadata.isMonitoredService(service.provider.serviceDefinition) &&
           !arrowHeadMetadata.existService(service.id)
       : false;
   });
+  
   const openApi = await Promise.all(
     filteredServices.map(openApiRequest.getOpenApi)
   );
 
-  const tds = filteredServices.map((service, i) => {
+  const tds = filteredServices.map(async (service, i) => {
     const td = tdFactory(service, openApi[i]);
-    metrics.setTranslatedTimestamp(service.id, new Date().getTime());
+    const ts = new Date().getTime();
+    await metrics.setTranslatedTimestamp(service.id, ts);
     return td;
   });
 
