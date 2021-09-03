@@ -1,13 +1,4 @@
 {
-    "arrowhead": {
-        "host": "137.204.57.93",
-        "port": 8443
-    },
-    "wotRepository": {
-        "host": "api.modron.network",
-        "port": 8080
-    },
-    "poolingInterval": 10,
     "adapter": {
         "port": 3334
     },
@@ -15,10 +6,8 @@
         "host": "localhost",
         "port": 3333
     },
-    "mode": {
-        "arrowheadAdapter": true,
-        "wotAdapter": true,
-        "wotRepository": "modron"
+    "metrics": {
+        "filename": "metrics.csv"
     },
-    "logLevel":"info"
+    "logLevel": "info"
 }
