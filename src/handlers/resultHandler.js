@@ -1,6 +1,7 @@
 const util = require('util');
 const logger = require('../logger');
 
+//TODO: improve the result handlers! 
 const errorHandler = (error) => {
   if (error.response) {
     logger.debug(error.response);
