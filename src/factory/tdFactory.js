@@ -50,7 +50,8 @@ const obtainGetSchema = (openApiPath) => {
   return false;
 };
 
-module.exports = (arrowHeadService, openApi) => {
+//TODO: get URL from OAS
+module.exports = (openApi) => {
   //const openApi = arrowHeadService.openApi;
   const td = {
     //
@@ -63,7 +64,7 @@ module.exports = (arrowHeadService, openApi) => {
     //openApi.info.title
     id: `urn:dev:ops:${openApi.info.title
       .toLowerCase()
-      .replace(" ", "-")}-${arrowHeadService.id.toString()}`,
+      .replace(" ", "-")}`,
     title: openApi.info.title.toLowerCase().replace(" ", "-"),
     securityDefinitions: {
       nosec_sc: {
@@ -84,9 +85,9 @@ module.exports = (arrowHeadService, openApi) => {
     actions: {},
   };
 
-  const serviceUrl = openApi.basePath
+ /*  const serviceUrl = openApi.basePath
     ? `${arrowHeadService.provider.address}:${arrowHeadService.provider.port}${openApi.basePath}`
-    : `${arrowHeadService.provider.address}:${arrowHeadService.provider.port}`;
+    : `${arrowHeadService.provider.address}:${arrowHeadService.provider.port}`; */
 
   if (openApi.definitions) td.definitions = openApi.definitions;
 
@@ -181,7 +182,8 @@ module.exports = (arrowHeadService, openApi) => {
       }
     }
   }
-  return { td: td, serviceUrl: serviceUrl, id: arrowHeadService.id };
+  return td;
+  //return { td: td, serviceUrl: serviceUrl, id: arrowHeadService.id };
 };
 
 const formatEndpoint = (pathRaw) => pathRaw.substring(1).replace(/\//g, "--");
