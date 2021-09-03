@@ -1,5 +1,3 @@
-
-
 module.exports = (router) => {
     router.route("/").get((req, res) => {
         try {
@@ -8,8 +6,6 @@ module.exports = (router) => {
             });
         } catch (err) {
             res.status(503).send();
-
         }
-
     });
 }
