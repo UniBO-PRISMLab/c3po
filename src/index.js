@@ -1,6 +1,5 @@
 const logger = require('./logger');
 const server = require('./server');
-const gConfig = require('./config/conf.json');
 require('dotenv').config()
 
 server.start()
