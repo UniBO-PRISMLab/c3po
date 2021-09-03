@@ -3,24 +3,14 @@ const fs = require("fs");
 const logger = require("../logger");
 const gConfig = require("../config/conf.json");
 const metricsArray = [];
-let lastArrowheadCall;
 
-const setGeneralArrowheadCallTimestamp = (timestamp) => {
-  lastArrowheadCall = timestamp;
-};
 
 const recordCompleteTimestamp = (metrics, id) => {
-  const formattedMetrics = `${id};${metrics.arrowhead};${metrics.oas};${metrics.translated};${metrics.deployed}\n`;
-
-  fs.appendFile(gConfig.metrics.filename, formattedMetrics, (err) => {
+  const formattedMetrics = `${id};${metrics.oas};${metrics.translated};${metrics.elapsedTime}\n`;
+  fs.appendFile(gConfig.metrics.filename, `${id};${metrics}`, (err) => {
     if (err) return console.log(err);
     logger.info(`file wrote - ${formattedMetrics}`);
   });
-};
-
-const setArrowheadCallTimestamp = (id) => {
-  metricsArray[id] = {};
-  metricsArray[id]["arrowhead"] = lastArrowheadCall;
 };
 
 const setOASTimestamp = (id, timestamp) => {
@@ -29,17 +19,13 @@ const setOASTimestamp = (id, timestamp) => {
 
 const setTranslatedTimestamp = (id, timestamp) => {
   metricsArray[id]["translated"] = timestamp;
-};
-
-const setDeployedTimestamp = (id, timestamp) => {
-  metricsArray[id]["deployed"] = timestamp;
+  metricsArray[id]["elapsedTime"] = metricsArray[id]["translated"] - metricsArray[id]["oas"];
   recordCompleteTimestamp(metricsArray[id], id);
 };
 
+
+
 module.exports = {
-  setGeneralArrowheadCallTimestamp,
-  setArrowheadCallTimestamp,
   setOASTimestamp,
-  setDeployedTimestamp,
   setTranslatedTimestamp,
 };
