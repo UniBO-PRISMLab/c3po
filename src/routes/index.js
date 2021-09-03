@@ -4,17 +4,16 @@ const routes = require("require-dir")();
 var package = require("./../../package.json");
 
 module.exports = (app) => {
-
   app.get("/", (req, res) =>
     res.json({
-      status: "Arrowhead API Its Working",
-      message: `Arrowhead version ${package.version} is running`,
-      description: package.description
+      status: "OAS to WoT TD API Its Working",
+      message: `OAS to WoT TD translator version ${package.version} is running`,
+      description: package.description,
     })
   );
 
   //iterate through each child route
-  for(route in routes){
+  for (route in routes) {
     const router = express.Router();
     // Initialize the route to add its functionality to router
     require(`./${route}`)(router);

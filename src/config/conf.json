@@ -1,5 +1,6 @@
 {
     "adapter": {
+        "host": "localhost",
         "port": 3334
     },
     "wot": {
