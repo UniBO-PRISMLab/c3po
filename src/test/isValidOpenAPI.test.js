@@ -1,4 +1,4 @@
-const isValidOAS = require("../validation/validateOAS");
+const isValidOAS = require("../utils/validateOAS");
 
 test("validating OpenAPI specification", () => {
   const validOAS = require("./mockFiles/swagger_example.json");

@@ -1,4 +1,4 @@
-const isValidJSON = require("../validation/validateJson");
+const isValidJSON = require("../utils/validateJson");
 
 test("validating JSON", () => {
   const validObject = {

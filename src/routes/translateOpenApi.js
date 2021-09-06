@@ -1,7 +1,7 @@
 const logger = require("../logger");
 
-const isValidJSON = require("../validation/validateJson");
-const isValidOAS = require("../validation/validateOAS");
+const isValidJSON = require("../utils/validateJson");
+const isValidOAS = require("../utils/validateOAS");
 const tdFactory = require("../factory/tdFactory");
 
 module.exports = (router) => {
