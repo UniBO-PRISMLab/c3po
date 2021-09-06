@@ -5,7 +5,8 @@ const pino = require("pino")({
     prettyPrint: {
         levelFirst: true,
         colorize: true,
-        translateTime: true
+        translateTime: true,
+        ignore: 'pid,hostname'
     },
 });
 
