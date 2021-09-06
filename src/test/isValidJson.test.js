@@ -1,4 +1,3 @@
-//import { isValidJSON } from "../validation/validateJson";
 const isValidJSON = require("../validation/validateJson");
 
 test("validating JSON", () => {

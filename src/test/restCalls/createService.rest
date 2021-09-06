@@ -57,3 +57,13 @@ GET http://137.204.57.93:8443/serviceregistry/mgmt/3103
 ###
 DELETE http://137.204.57.93:8443/serviceregistry/mgmt/3061
 Accept: application/json
+
+####
+POST http://localhost:3334/translateOpenApi/query
+Content-Type: application/json
+
+{
+  "metadataRequirements": {
+    "additionalProp1": "http://137.204.57.93:8889/api-docs"
+  }
+}

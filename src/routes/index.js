@@ -1,10 +1,10 @@
 const express = require("express");
 const routes = require("require-dir")();
 
-var package = require("./../../package.json");
+const package = require("./../../package.json");
 
 module.exports = (app) => {
-  app.get("/", (req, res) =>
+  app.get("/", (_req, res) =>
     res.json({
       status: "OAS to WoT TD API Its Working",
       message: `OAS to WoT TD translator version ${package.version} is running`,
