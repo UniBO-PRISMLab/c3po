@@ -1,15 +1,29 @@
+const logger = require("../logger");
 const OpenAPISchemaValidator = require("openapi-schema-validator").default;
 
-//TODO: added a way to choose OAS version - current we expect all to be v2
-const validator = new OpenAPISchemaValidator({
-  version: 2,
-});
+const generateValidator = (version) =>
+  new OpenAPISchemaValidator({
+    version: version,
+  });
 
-module.exports = (potentialOAS) => {
+const getReport = (potentialOAS) => {
   try {
+    const validator = generateValidator(potentialOAS.openapi ? 3 : 2);
     const validationReport = validator.validate(potentialOAS);
-    return validationReport.errors.length === 0;
+    logger.debug(validationReport);
+    return validationReport;
   } catch (err) {
+    logger.error(err);
     return false;
   }
 };
+
+const isValidOAS= (potentialOAS) => {
+  const report = getReport(potentialOAS);
+  return report ? report.errors.length === 0 : false;
+};
+
+module.exports = {
+  getReport,
+  isValidOAS
+} 

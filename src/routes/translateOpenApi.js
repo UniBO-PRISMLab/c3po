@@ -1,7 +1,7 @@
 const logger = require("../logger");
 
 const isValidJSON = require("../utils/validateJson");
-const isValidOAS = require("../utils/validateOAS");
+const oasValidator = require("../utils/validateOAS");
 const tdFactory = require("../factory/tdFactory");
 
 module.exports = (router) => {
@@ -17,7 +17,7 @@ module.exports = (router) => {
       res.status(400).send("error parsing JSON");
     }
     //2. check if OAS specification is valid
-    else if (!isValidOAS(openApi)) {
+    else if (!oasValidator.isValidOAS(openApi)) {
       logger.info("Invalid OpenAPI schema received at /translateOpenApi");
       res.status(400).send("Request is an invalid OpenAPI specification ");
     } else {
