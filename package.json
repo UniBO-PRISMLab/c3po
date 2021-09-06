@@ -20,16 +20,12 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-openapi-validator": "^4.12.6",
-    "fast-xml-parser": "^3.19.0",
-    "he": "^1.2.0",
     "js-base64": "^3.6.0",
-    "jwt-decode": "^3.1.2",
-    "object-hash": "^2.1.1",
     "pino": "^6.11.2",
     "pino-pretty": "^4.7.1",
     "require-dir": "^1.2.0",
-    "soap": "^0.36.0",
-    "swagger-ui-express": "^4.1.6"
+    "swagger-ui-express": "^4.1.6",
+    "openapi-schema-validator": "^9.3.0"
   },
   "author": {
     "name": "Ivan Zyrianoff",
