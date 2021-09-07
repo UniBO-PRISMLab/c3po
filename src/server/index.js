@@ -29,7 +29,6 @@ const docsSetup = async () => {
     );
 }
 
-
 module.exports.start = async () => {
     app.use(express.json());
     //Initialize routes
