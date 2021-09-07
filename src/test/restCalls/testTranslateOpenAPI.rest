@@ -1,3 +1,7 @@
+POST http://localhost:3334/translateOpenApi/url
+Content-Type: application/json
+
+ {"url": "http://137.204.57.93:8443/v2/api-docs"}
 ####
 POST http://localhost:3334/translateOpenApi
 Content-Type: application/json
