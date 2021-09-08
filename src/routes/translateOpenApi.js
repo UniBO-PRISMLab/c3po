@@ -1,36 +1,39 @@
 const logger = require("../logger");
+const validUrl = require("valid-url");
 
-const isValidJSON = require("../utils/validateJson");
-const oasValidator = require("../utils/validateOAS");
-const tdFactory = require("../factory/tdFactory");
+const translateOpenApi = require("../utils/translateOAS");
+const openApiRequest = require("../repositories/openApiRequest");
 
 module.exports = (router) => {
+  //user send the openAPI schema in the body of the request as a JSON
   router.route("/").post((req, res) => {
     logger.info("received a POST request at /translateOpenApi");
     logger.debug(req.body);
 
     const openApi = req.body;
+    translateOpenApi(openApi, (status, response) => {
+      res.status(status).send(response);
+    });
+  });
+  //user sends the URL (as {"url": "someurl.com" }) that exposes a OpenAPI schema in JSON
+  router.route("/url").post(async (req, res) => {
+    logger.info("received a POST request at /translateOpenApi/url");
+    logger.debug(req.body);
 
-    //1. check if JSON is valid
-    if (!isValidJSON(openApi)) {
-      logger.info("Invalid JSON received at /translateOpenApi");
-      res.status(400).send("error parsing JSON");
-    }
-    //2. check if OAS specification is valid
-    else if (!oasValidator.isValidOAS(openApi)) {
-      logger.info("Invalid OpenAPI schema received at /translateOpenApi");
-      res.status(400).send("Request is an invalid OpenAPI specification ");
-    } else {
-      //3. translate OAS to WoT TD
-      const thingDescription = tdFactory(openApi);
-      //4. Reply to user
+    const url = req.body.url;
+    if (validUrl.isUri(url)) {
       try {
-        logger.info("Replying to user with translated Thing Description");
-        res.status(200).json(thingDescription);
+        const openApi = await openApiRequest.getOpenApi(url);
+        translateOpenApi(openApi, (status, response) => {
+          res.status(status).send(response);
+        });
       } catch (err) {
-        logger.info("Service unavailable at /translateOpenApi");
-        res.status(503).send("Service unavailable");
+        res.status(404).send(`Error fetching OpenAPI request
+          \n error message: ${err}`);
       }
+    } else {
+      logger.info(`Invalid URL (${url}) received at /translateOpenApi/url`);
+      res.status(400).send(`Received an invalid URL (${url})`);
     }
   });
 };
