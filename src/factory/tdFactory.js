@@ -34,7 +34,7 @@ const obtainPostSchema = (openApiPath) => {
   return false;
 };
 
-//TODO: this is a ugly function :( -> improve it in the future
+//TODO: this is a ugly function -> improve it in the future
 const obtainGetSchema = (openApiPath) => {
   if (openApiPath.get.responses)
     if (openApiPath.get.responses["200"])
@@ -50,7 +50,6 @@ const obtainGetSchema = (openApiPath) => {
   return false;
 };
 
-//TODO: get URL from OAS
 module.exports = (openApi) => {
   //const openApi = arrowHeadService.openApi;
   const td = {
@@ -62,9 +61,7 @@ module.exports = (openApi) => {
       },
     ],
     //openApi.info.title
-    id: `urn:dev:ops:${openApi.info.title
-      .toLowerCase()
-      .replace(" ", "-")}`,
+    id: `urn:dev:ops:${openApi.info.title.toLowerCase().replace(" ", "-")}`,
     title: openApi.info.title.toLowerCase().replace(" ", "-"),
     securityDefinitions: {
       nosec_sc: {
@@ -72,7 +69,7 @@ module.exports = (openApi) => {
       },
     },
     security: ["nosec_sc"],
-    description: openApi.info.description,
+    description: openApi.info.description || "",
     //GET endpoints are read-only
     //GET and PUT endpoints are writable properties
     //all PUT -> update + path
@@ -84,10 +81,6 @@ module.exports = (openApi) => {
     //all DELETE -> delete + path
     actions: {},
   };
-
- /*  const serviceUrl = openApi.basePath
-    ? `${arrowHeadService.provider.address}:${arrowHeadService.provider.port}${openApi.basePath}`
-    : `${arrowHeadService.provider.address}:${arrowHeadService.provider.port}`; */
 
   if (openApi.definitions) td.definitions = openApi.definitions;
 
