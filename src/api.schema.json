@@ -1,173 +1,109 @@
 {
-    "openapi": "3.0.1",
-    "info": {
-        "title": "WoT-ArrowHead Adapter",
-        "description": "The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things.",
-        "contact": {
-            "email": "ivandimitry.ribeiro@unibo.it",
-            "name": "Ivan Zyrianoff"
-        },
-        "version": "1.0.0"
+  "openapi": "3.0.1",
+  "info": {
+    "title": "OpenAPI-WoT Translator",
+    "description": "TheOpenAPI-WoT Translator converts OpenAPI schema to W3C WoT Thing Descriptions and deploys them",
+    "contact": {
+      "email": "ivandimitry.ribeiro@unibo.it",
+      "name": "Ivan Zyrianoff"
     },
-    "servers": [
-        {
-            "url": "http://177.104.61.116:3334"
-        }
-    ],
-    "paths": {
-        "/arrowhead": {
-            "get": {
-                "description": "returns metadata about the ArrowHead calls",
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/poolingArrowHead"
-                                }
-                            }
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable"
-                    }
-                }
-            },
-            "post": {
-                "description": "add a new service name to be translate as a Web Thing",
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "503": {
-                        "description": "Service Unavailable"
-                    },
-                    "422": {
-                        "description": "object send does not match the requested parameters"
-                    },
-                    "409": {
-                        "description": "Service name is already monitored"
-                    }
-                }
-            }
-        },
-        "/wotRepository": {
-            "get": {
-                "description": "returns metadata about the modron calls",
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/poolingWoT"
-                                }
-                            }
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable"
-                    }
-                }
-            }
-        },
-        "/management": {
-            "get": {
-                "description": "returns metadata about the modron   and the arrowhead calls",
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "503": {
-                        "description": "Service Unavailable"
-                    }
-                }
-            }
-        },
-        "/health": {
-            "get": {
-                "description": "returns an object containing some Adapter metadata if it is current running",
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "503": {
-                        "description": "Service Unavailable"
-                    }
-                }
-            }
-        }
-    },
-    "components": {
-        "schemas": {
-            "poolingArrowHead": {
-                "type": "object",
-                "properties": {
-                    "lastArrowHeadCall": {
-                        "type": "object",
-                        "properties": {
-                            "timestamp": {
-                                "type": "string"
-                            },
-                            "servicesCreated": {
-                                "type": "integer"
-                            }
-                        }
-                    },
-                    "services": {
-                        "type": "array",
-                        "items": {
-                            "type": "integer"
-                        }
-                    },
-                    "monitoredServicesNames": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    }
-                }
-            },
-            "poolingWoT": {
-                "type": "object",
-                "properties": {
-                    "lastWoTRepositoryCall": {
-                        "type": "object",
-                        "properties": {
-                            "timestamp": {
-                                "type": "string"
-                            },
-                            "devicesCreated": {
-                                "type": "integer"
-                            },
-                            "devicesUpdated": {
-                                "type": "integer"
-                            }
-                        }
-                    },
-                    "devices": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "mode": {
-                        "type": "string"
-                    }
-                }
-            },
-            "poolingManagement": {
-                "type": "object",
-                "properties": {
-                    "poolingArrowHead": {
-                        "$ref": "#/components/schemas/poolingArrowHead"
-                    },
-                    "wotRepository": {
-                        "$ref": "#/components/schemas/poolingWoT"
-                    }
-                }
-            }
-        }
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3334"
     }
+  ],
+  "paths": {
+    "/deployWoT": {
+      "post": {
+        "summary": "deploys a Web Thing from a OpenAPI schema",
+        "description": "Translated a OpenAPI Schema into a WoT Thing Description and deploy the correspondent Web Thing",
+        "responses": {
+          "201": {
+            "description": "successful operation"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          },
+          "409": {
+            "description": "There is already a Web Thing deployed with the same title"
+          },
+          "400": {
+            "description": "Invalid Request"
+          }
+        }
+      }
+    },
+    "/deployWoT/url": {
+      "post": {
+        "summary": "deploys a Web Thing given a URL with a OpenAPI schema",
+        "description": "Perform a GET request in the provided url that must contain a OpenAPI schema. Then, the application translates the obtained OpenAPI Schema into a WoT Thing Description and deploy the correspondent Web Thing",
+        "responses": {
+          "201": {
+            "description": "successful operation"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          },
+          "409": {
+            "description": "There is already a Web Thing deployed with the same title"
+          },
+          "400": {
+            "description": "Invalid Request"
+          },
+          "404": {
+            "description": "Error fetching the requested URL"
+          }
+        }
+      }
+    },
+    "/translateOpenApi": {
+      "post": {
+        "summary": "Returns a Thing Description",
+        "description": "Translated a OpenAPI Schema into a WoT Thing Description",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          },
+          "400": {
+            "description": "Invalid Request"
+          }
+        }
+      }
+    },
+    "/translateOpenApi/url": {
+      "post": {
+        "summary": "Returns a Thing Description",
+        "description": "Perform a GET request in the provided url that must contain a OpenAPI schema. Then, the application translates the obtainedTranslated a OpenAPI Schema into a WoT Thing Description",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          },
+          "400": {
+            "description": "Invalid Request"
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "description": "returns an object containing application metadata if the application is current running",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    }
+  }
 }
