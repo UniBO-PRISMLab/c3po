@@ -1,8 +1,7 @@
 const Servient = require("@node-wot/core").Servient;
 const HttpServer = require("@node-wot/binding-http").HttpServer
 
-const gConfig = require('./config/conf.json')
-
+const gConfig = require('../config/conf.json')
 
 const wot = {
     "wotServer": undefined,
