@@ -2,7 +2,7 @@ const logger = require("../logger");
 const validUrl = require("valid-url");
 
 const translateOpenApi = require("../utils/translateOAS");
-const openApiRequest = require("../repositories/openApiRequest");
+const openApiRequest = require("../repositories/request");
 
 module.exports = (router) => {
   //user send the openAPI schema in the body of the request as a JSON
@@ -23,7 +23,7 @@ module.exports = (router) => {
     const url = req.body.url;
     if (validUrl.isUri(url)) {
       try {
-        const openApi = await openApiRequest.getOpenApi(url);
+        const openApi = await openApiRequest.getUrl(url);
         translateOpenApi(openApi, (status, response) => {
           res.status(status).send(response);
         });
