@@ -2,6 +2,9 @@ const axios = require("axios");
 
 const gConfig = require("../config/conf.json");
 
+//I have a bad internet connection
+jest.setTimeout(30000);
+
 test("POST /translateOpenApi/url", async () => {
   const host = gConfig.translator.host;
   const port = gConfig.translator.port || 3000;
