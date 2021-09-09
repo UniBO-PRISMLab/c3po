@@ -12,16 +12,13 @@ const errorHandler = (error) => {
   } else if (error.request) {
     logger.debug(error);
     return Promise.reject(
-      new Error(`The request was made but no response was received 
-      \nstatus: ${util.inspect(error.response.status)}`)
+      new Error(`The request was made but no response was received`)
     );
   } else {
     logger.debug(error);
     return Promise.reject(
       new Error(
-        `Something happened in setting up the request that triggered an Error
-        \nerror message: ${util.inspect(error.message)}
-        \nstatus: ${util.inspect(error.response.status)}`
+        `Something happened in setting up the request that triggered an Error`
       )
     );
   }
