@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "OpenAPI-WoT Translator",
-    "description": "TheOpenAPI-WoT Translator converts OpenAPI schema to W3C WoT Thing Descriptions and deploys them",
+    "title": "WoTTranslator",
+    "description": "The WoTTranslator converts OpenAPI schema to W3C WoT Thing Descriptions and deploys them",
     "contact": {
       "email": "ivandimitry.ribeiro@unibo.it",
       "name": "Ivan Zyrianoff"

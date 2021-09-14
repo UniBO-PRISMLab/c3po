@@ -1,7 +1,7 @@
 {
-  "name": "wot-arrowheadAdapter",
+  "name": "WoTTranslator",
   "version": "1.0.0",
-  "description": "The WoT-ArrowHead Adapter converts Web Things to ArrowHead services and converts ArrowHead services into Web Things",
+  "description": "The WoTTranslator converts OpenAPI schema to W3C WoT Thing Descriptions",
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
