@@ -7,8 +7,5 @@
         "host": "localhost",
         "port": 3333
     },
-    "metrics": {
-        "filename": "metrics.csv"
-    },
     "logLevel": "info"
 }
