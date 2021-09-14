@@ -24,7 +24,7 @@ const obtainPostSchema = (openApiPath) => {
   if (openApiPath.post.parameters) {
     for (const parameter of openApiPath.post.parameters) {
       if (parameter["in"] === "body") {
-        //note: this is not elegant, but "in" is a js reserved word, so we cannot not copy it as we did for the name property
+        //* note: this is not elegant, but "in" is a js reserved word, so we cannot not copy it as we did for the name property
         let { name, ...schema } = parameter;
         delete schema.in;
         return schema;
@@ -51,18 +51,16 @@ const obtainGetSchema = (openApiPath) => {
 };
 
 module.exports = (openApi) => {
-  //const openApi = arrowHeadService.openApi;
   const td = {
-    //
     "@context": [
       "https://www.w3.org/2019/wot/td/v1",
       {
         "@language": "en",
       },
     ],
-    //openApi.info.title
     id: `urn:dev:ops:${openApi.info.title.toLowerCase().replace(" ", "-")}`,
     title: openApi.info.title.toLowerCase().replace(" ", "-"),
+    //TODO: add securityDefinitions
     securityDefinitions: {
       nosec_sc: {
         scheme: "nosec",
@@ -86,8 +84,8 @@ module.exports = (openApi) => {
 
   for (const pathRaw in openApi.paths) {
     if (!pathRaw.includes("/{")) {
-      const path = formatEndpoint(pathRaw); //pathRaw.replace('/', '');
-      //const application = "application/json";
+      const path = 
+      formatEndpoint(pathRaw);
       if ("get" in openApi.paths[pathRaw]) {
         td.properties[path] = {
           readOnly: true,
@@ -176,13 +174,36 @@ module.exports = (openApi) => {
     }
   }
   return td;
-  //return { td: td, serviceUrl: serviceUrl, id: arrowHeadService.id };
 };
 
 const formatEndpoint = (pathRaw) => pathRaw.substring(1).replace(/\//g, "--");
 
-//This function formats endpoints to td affordances names, as:
-// /example -> example
-// /another/example -> anotherExample
-//const formatEndpoint = (pathRaw) => pathRaw.replace('/', '').split('/').reduce((acc, curr) => acc + capitalize(curr));
-//const capitalize = (str) => str.charAt(0).toUpperCase() + str.substring(1);
+// * Add parameters in the translation:
+// * path parameters
+// * query parameters
+// * header parameters
+// * cookie parameters
+const addParameter = (method) => {
+  const input = {
+    parameters: [],
+  };
+  for (const parameter of method.parameters) {
+    //TODO: consider cases where we have path parameter without schema
+    //TODO: support openapi 2.0 -> without schema
+    input.parameters.push(convertParameters(parameter["in"], parameter));
+  }
+};
+
+const convertParameters = (
+  parameterType,
+  { name, required, schema = false, description = false }
+) => {
+  const parameter = {
+    in: parameterType,
+    name: name,
+    required: required,
+  };
+  if (description) parameter.description = description;
+  if (schema) parameter.schema = schema;
+  return parameter;
+};
