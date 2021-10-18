@@ -1,4 +1,4 @@
-const swagger = require('../api.schema.json')
+const swagger = require('../config/swagger/api.schema.json')
 
 module.exports = (router) => {
     router.route("/").get((req, res) => {

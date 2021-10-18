@@ -1,5 +1,5 @@
 //TODO: add authentication
-const logger = require("../logger");
+const logger = require("../config/logger");
 const validUrl = require("valid-url");
 
 const deployOpenApi = require("../utils/deployOpenApi");

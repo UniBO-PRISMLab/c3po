@@ -1,17 +1,17 @@
 const express = require('express');
 
-const gConfig = require("../config/conf.json")
-const app = express();
-
-const routesPath = "../routes";
-
-const apiSchema = require("../api.schema.json")
-
 const swaggerUi = require('swagger-ui-express');
 const OpenApiValidator = require('express-openapi-validator')
 
+const gConfig = require("../config/conf.json")
+const apiSchema = require("../config/swagger/api.schema.json")
+
+const routesPath = "../routes";
+
 const host = gConfig.translator.host;
 const port = gConfig.translator.port || 3000;
+
+const app = express();
 
 const docsSetup = async () => {
     const options = {

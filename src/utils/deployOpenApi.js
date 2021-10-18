@@ -1,4 +1,4 @@
-const logger = require("../logger");
+const logger = require("../config/logger");
 const gConfig = require("../config/conf.json");
 const wotCreator = require("../wot/wotCreator");
 const translateOpenApi = require("./translateOAS");

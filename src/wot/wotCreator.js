@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const wot = require("./wotServer");
-const logger = require("../logger");
+const logger = require("../config/logger");
 const gConfig = require("../config/conf.json");
 const resultHandler = require("../handlers/resultHandler");
 const headerFactory = require("../factory/headers");

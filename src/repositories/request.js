@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const logger = require("../logger");
+const logger = require("../config/logger");
 const headerFactory = require("../factory/headers");
 const resultHandler = require("../handlers/resultHandler");
 

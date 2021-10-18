@@ -1,4 +1,4 @@
-const logger = require("../logger");
+const logger = require("../config/logger");
 const OpenAPISchemaValidator = require("openapi-schema-validator").default;
 
 const generateValidator = (version) =>

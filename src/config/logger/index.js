@@ -1,4 +1,4 @@
-const gConfig = require('../config/conf.json')
+const gConfig = require('../conf.json')
 
 const pino = require("pino")({
     level: gConfig.logLevel,

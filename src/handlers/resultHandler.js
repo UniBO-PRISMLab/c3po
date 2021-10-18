@@ -1,5 +1,5 @@
 const util = require("util");
-const logger = require("../logger");
+const logger = require("../config/logger");
 
 //TODO: improve the result handlers!
 const errorHandler = (error) => {

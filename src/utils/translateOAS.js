@@ -1,7 +1,7 @@
-const logger = require("../logger");
+const logger = require("../config/logger");
 
-const isValidJSON = require("../utils/validateJson");
-const oasValidator = require("../utils/validateOAS");
+const isValidJSON = require("../validations/validateJson");
+const oasValidator = require("../validations/validateOAS");
 const tdFactory = require("../factory/tdFactory");
 
 module.exports = (openApi, callback) => {
