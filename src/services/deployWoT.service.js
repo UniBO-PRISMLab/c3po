@@ -1,10 +1,11 @@
 const axios = require("axios");
 
-const wot = require("./wotServer");
 const logger = require("../config/logger");
+const wot = require("../server/wot.server");
 const gConfig = require("../config/conf.json");
-const resultHandler = require("../handlers/resultHandler");
-const headerFactory = require("../factory/headers");
+
+const resultHandler = require("../utils/handlers/resultHandler");
+const headerFactory = require("../utils/headers");
 
 const createThing = async (td, serviceUrl) => {
   if (typeof wot.getServer() === "undefined") await wot.startServer();
@@ -94,6 +95,4 @@ const setAction = (thing, actionName, serviceUrl, title) => {
   });
 };
 
-module.exports = {
-  createThing,
-};
+module.exports = createThing;
