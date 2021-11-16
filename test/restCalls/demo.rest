@@ -1,0 +1,6 @@
+####
+GET http://137.204.57.93:8443/serviceregistry/mgmt/90
+
+###
+DELETE http://137.204.57.93:8443/serviceregistry/mgmt/90
+Accept: application/json

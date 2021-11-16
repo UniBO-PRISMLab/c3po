@@ -1,0 +1,46 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Gas Sensor",
+      "description": "a simple gas sensor",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://137.204.57.93:8888"
+      }
+    ],
+    "paths": {
+      "/gas-sensor-status": {
+        "get": {
+          "description": "returns the status of the gas sensor",
+          "responses": {
+            "200": {
+              "description": "successful operation",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "humidity": {
+                        "type": "number"
+                      },
+                      "resistance": {
+                        "type": "number"
+                      },
+                      "temperature": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
