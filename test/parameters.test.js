@@ -1,5 +1,5 @@
 const { test } = require("jest-circus");
-const tdFactory = require("../factory/tdFactory").default;
+const convertParameters = require("../src/services/translateOpenApi/convertParameters");
 
 const mockParameterTests = [];
 const factoryMockParameterTests = (operation, expect) => ({
@@ -130,7 +130,7 @@ mockParameterTests.push(
 describe("isParameter test", () => {
   mockParameterTests.forEach((mockParameterTest, i) => {
     it(`isParameter - #${i + 1}`, () => {
-      expect(tdFactory.isParameters(mockParameterTest.operation)).toBe(
+      expect(convertParameters.hasParameters(mockParameterTest.operation)).toBe(
         mockParameterTest.expect
       );
     });
@@ -145,7 +145,7 @@ mockMandatoryParameterTests[1].expect = false;
 describe("isMandatoryParameters()", () => {
   mockMandatoryParameterTests.forEach((mockParameterTest, i) => {
     it(`isMandatoryParameters #${i + 1}`, () => {
-      expect(tdFactory.isMandatoryParameters(mockParameterTest.operation)).toBe(
+      expect(convertParameters.hasMandatoryParameters(mockParameterTest.operation)).toBe(
         mockParameterTest.expect
       );
     });
