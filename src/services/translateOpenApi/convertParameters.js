@@ -31,7 +31,7 @@ const convertParameters = (
 };
 
 const hasMandatoryParameters = (path, version) => {
-  if (!hasParameters(path, version)) return; // false;
+  if (!hasParameters(path, version)) return false;
 
   if (version == 2) path.parameters = removeVersion2Parameters(path.parameters);
 
