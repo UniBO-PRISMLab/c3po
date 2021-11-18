@@ -6,12 +6,21 @@
 
 const addParameter = (operation) => {
   const input = {
-    parameters: [],
+    properties: {
+      parameters: {
+        type: "object",
+        properties: {},
+      },
+    },
+    type: "object",
   };
   for (const parameter of operation.parameters) {
     //TODO: consider cases where we have path parameter without schema
     //TODO: support openapi 2.0 -> without schema
-    input.parameters.push(convertParameters(parameter["in"], parameter));
+    input.properties.parameters.properties = {
+      ...input.properties.parameters.properties,
+      ...convertParameters(parameter["in"], parameter),
+    };
   }
   return input;
 };
@@ -21,12 +30,13 @@ const convertParameters = (
   { name, required, schema = false, description = false }
 ) => {
   const parameter = {
-    in: parameterType,
-    name: name,
-    required: required,
+    [name]: {
+      in: parameterType,
+      required: required,
+    },
   };
-  if (description) parameter.description = description;
-  if (schema) parameter.schema = schema;
+  if (description) parameter[name].description = description;
+  if (schema) parameter[name].schema = schema;
   return parameter;
 };
 
