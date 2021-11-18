@@ -1,7 +1,7 @@
 const structureAffordance = require("./structureAffordance");
 
 const convertRequest = {
-  propertyConversion(operation, name, method) {
+  propertyConversion(operation, name, version, method) {
     const convertedOperation = {
       properties: {},
     };
@@ -10,11 +10,12 @@ const convertRequest = {
     convertedOperation.properties[propertyName] = structureAffordance(
       operation,
       convertedOperation.properties[propertyName],
-      method
+      method,
+      version
     );
     return convertedOperation;
   },
-  actionConversion(operation, name, method) {
+  actionConversion(operation, name, version, method) {
     const convertedOperation = {
       actions: {},
     };
@@ -22,27 +23,29 @@ const convertRequest = {
     convertedOperation.actions[actionName] = structureAffordance(
       operation,
       convertedOperation.actions[actionName],
-      method
+      method,
+      version
     );
     return convertedOperation;
   },
 };
 
+//TODO: convert all this inputs in an object to improve readability
 module.exports = {
-  get(operation, name) {
-    return convertRequest.propertyConversion(operation, name, "get");
+  get(operation, name, version) {
+    return convertRequest.propertyConversion(operation, name, version, "get");
   },
-  put(operation, name) {
-    return convertRequest.propertyConversion(operation, name, "put");
+  put(operation, name, version) {
+    return convertRequest.propertyConversion(operation, name, version, "put");
   },
-  post(operation, name) {
-    return convertRequest.actionConversion(operation, name, "post");
+  post(operation, name, version) {
+    return convertRequest.actionConversion(operation, name, version, "post");
   },
-  delete(operation, name) {
-    return convertRequest.actionConversion(operation, name, "delete");
+  delete(operation, name, version) {
+    return convertRequest.actionConversion(operation, name, version, "delete");
   },
-  patch(operation, name) {
+  patch(operation, name, version) {
     // ? To be implemented
-    return convertRequest.actionConversion(operation, name, "patch");
+    return convertRequest.actionConversion(operation, name, version, "patch");
   },
 };
