@@ -1,4 +1,5 @@
 const methodSelector = require("./methodSelector");
+const replacer = require("../../utils/replacer");
 
 const translateOpenApi = (openApi) => {
   const version = openApi.openapi ? 3 : 2;
@@ -31,7 +32,8 @@ const translateOpenApi = (openApi) => {
       const path = openApi.paths[pathRaw][operation];
       const convertedOperation = methodSelector[operation](
         path,
-        formatEndpoint(pathRaw)
+        formatEndpoint(pathRaw),
+        version
       );
       for (const affordance in convertedOperation)
         td[affordance] = {
@@ -43,6 +45,6 @@ const translateOpenApi = (openApi) => {
   return td;
 };
 
-const formatEndpoint = (pathRaw) => pathRaw.substring(1).replace(/\//g, "--");
+const formatEndpoint = (pathRaw) => replacer.replaceSlash(pathRaw.substring(1));
 
 module.exports = translateOpenApi;

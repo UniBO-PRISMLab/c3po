@@ -6,6 +6,7 @@ const gConfig = require("../config/conf.json");
 
 const resultHandler = require("../utils/handlers/resultHandler");
 const headerFactory = require("../utils/headers");
+const replacer = require("../utils/replacer");
 
 const createThing = async (td, serviceUrl) => {
   if (typeof wot.getServer() === "undefined") await wot.startServer();
@@ -15,7 +16,7 @@ const createThing = async (td, serviceUrl) => {
     logger.info(
       `setting ${key} property handler of ${
         td.title
-      } Thing to ${serviceUrl}"/"${key.replace(/--/g, "/")}`
+      } Thing to ${serviceUrl}"/"${replacer.includeSlash(key)}`
     );
 
     if (!thing.properties[key].readOnly) {
@@ -29,7 +30,7 @@ const createThing = async (td, serviceUrl) => {
         logger.info(
           `performing PUT request for ${key} property of ${
             td.title
-          }  at ${`${serviceUrl}"/"${key.replace(/--/g, "/")}`}`
+          }  at ${`${serviceUrl}"/"${replacer.includeSlash(key)}`}`
         );
         return propertyRequest
           .then((response) => response.data)
@@ -40,13 +41,13 @@ const createThing = async (td, serviceUrl) => {
       thing.setPropertyReadHandler(key, async () => {
         const headers = headerFactory.get();
         const propertyRequest = axios.get(
-          `${serviceUrl}"/"${key.replace(/--/g, "/")}`,
+          `${serviceUrl}"/"${replacer.includeSlash(key)}`,
           { headers }
         );
         logger.info(
           `performing GET request for ${key} property of ${
             td.title
-          } Thing at ${`${serviceUrl}"/"${key.replace(/--/g, "/")}`}`
+          } Thing at ${`${serviceUrl}"/"${replacer.includeSlash(key)}`}`
         );
         return propertyRequest
           .then((response) => response.data)
@@ -67,7 +68,7 @@ const createThing = async (td, serviceUrl) => {
 
 const setAction = (thing, actionName, serviceUrl, title) => {
   thing.setActionHandler(actionName, async (input) => {
-    const url = serviceUrl + "/" + actionName.replace(/--/g, "/");
+    const url = `${serviceUrl}/${replacer.includeSlash(actionName)}`;
 
     const headers = headerFactory.post();
     if (actionName.includes("delete")) {
