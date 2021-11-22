@@ -1,8 +1,10 @@
+//TODO: refactor this mess, it works but for sure it isn't pretty
+
 const getProxyUrl = (openApi) => {
   const serviceUrl = [];
   if (openApi.host) {
-    const host = openApi.baseUrl
-      ? `${openApi.host}${openApi.baseUrl}`
+    const host = openApi.basePath
+      ? `${openApi.host}${openApi.basePath}`
       : openApi.host;
     if (openApi.schemes) {
       for (const scheme of openApi.schemes)
@@ -11,7 +13,9 @@ const getProxyUrl = (openApi) => {
       serviceUrl.push(`http://${host}`);
     }
   } else {
-    for (const server of openApi.servers) serviceUrl.push(server.url);
+    if (Array.isArray(openApi.servers))
+      for (const server of openApi.servers) serviceUrl.push(server.url);
+    else serviceUrl.push(openApi.servers.url);
   }
   return serviceUrl;
 };
