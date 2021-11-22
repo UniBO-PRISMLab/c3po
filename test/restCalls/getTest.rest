@@ -1,0 +1,109 @@
+GET  https://petstore3.swagger.io/api/v3/store/inventory
+
+######
+
+GET http://10.200.10.213:3333/swagger-petstore-openapi-3.0/properties/get-store.inventory
+
+
+###
+GET  https://petstore3.swagger.io/api/v3/pet/10
+###
+PUT https://petstore3.swagger.io/api/v3/pet
+Content-Type: application/json
+
+{
+  "id": 10,
+  "name": "Claudio",
+  "category": {
+    "id": 1,
+    "name": "Dogs"
+  },
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "dengosa"
+    }
+  ],
+  "status": "available"
+}
+
+###
+
+PUT http://10.200.10.213:3333/swagger-petstore-openapi-3.0/properties/put-pet
+Content-Type: application/json
+
+{
+  "id": 10,
+  "name": "Lala",
+  "category": {
+    "id": 1,
+    "name": "Dogs"
+  },
+  "photoUrls": [
+    "photo-test"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "fofa"
+    }
+  ],
+  "status": "available"
+}
+
+###
+
+POST  https://petstore3.swagger.io/api/v3/pet
+Content-Type: application/json
+
+{
+  "id": 17,
+  "name": "Lala",
+  "category": {
+    "id": 1,
+    "name": "Dogs"
+  },
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "status": "available"
+}
+
+####
+POST http://10.200.10.213:3333/swagger-petstore-openapi-3.0/actions/post-pet
+Content-Type: application/json
+
+{
+  "id": 10,
+  "name": "doggie",
+  "category": {
+    "id": 1,
+    "name": "Dogs"
+  },
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 0,
+      "name": "string"
+    }
+  ],
+  "status": "available"
+}
+
+###
+###
+DELETE https://petstore3.swagger.io/api/v3/pet/
+
+###
+POST http://10.200.10.213:3333/swagger-petstore-openapi-3.0/actions/delete-pet
