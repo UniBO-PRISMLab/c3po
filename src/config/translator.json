@@ -1,3 +1,7 @@
 {
-    "slashSubstitute": "."
+  "slashSubstitute": ".",
+  "paramSubstitute": {
+    "start": "param_",
+    "end": ""
+  }
 }
