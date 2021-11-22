@@ -16,38 +16,42 @@ const createThing = async (td, serviceUrl) => {
     logger.info(
       `setting ${key} property handler of ${
         td.title
-      } Thing to ${serviceUrl}"/"${replacer.includeSlash(key)}`
+      } Thing to ${serviceUrl}/${replacer.formatUri(key)}`
     );
 
-    if (!thing.properties[key].readOnly) {
+    if (key.includes("put-")) {
       thing.setPropertyWriteHandler(key, async (input) => {
         const headers = headerFactory.put();
-        const propertyRequest = axios.put(
-          `${serviceUrl}"/"${key.replace(/--/g, "/")}`,
+        const propertyRequest =  axios.put(
+          `${serviceUrl}/${replacer.formatUri(key)}`,
           input,
           { headers }
         );
         logger.info(
           `performing PUT request for ${key} property of ${
             td.title
-          }  at ${`${serviceUrl}"/"${replacer.includeSlash(key)}`}`
+          }  at ${`${serviceUrl}/${replacer.formatUri(key)}`}`
         );
         return propertyRequest
-          .then((response) => response.data)
+          .then((response) => {
+            logger.info("PUT response:");
+            console.log(response.data);
+            response.data
+          })
           .catch(resultHandler.errorHandler);
       });
     }
-    if (!thing.properties[key].writeOnly)
+    if (key.includes("get-"))
       thing.setPropertyReadHandler(key, async () => {
         const headers = headerFactory.get();
-        const propertyRequest = axios.get(
-          `${serviceUrl}"/"${replacer.includeSlash(key)}`,
+        const propertyRequest =  axios.get(
+          `${serviceUrl}/${replacer.formatUri(key)}`,
           { headers }
         );
         logger.info(
           `performing GET request for ${key} property of ${
             td.title
-          } Thing at ${`${serviceUrl}"/"${replacer.includeSlash(key)}`}`
+          } Thing at ${`${serviceUrl}/${replacer.formatUri(key)}`}`
         );
         return propertyRequest
           .then((response) => response.data)
@@ -67,19 +71,24 @@ const createThing = async (td, serviceUrl) => {
 };
 
 const setAction = (thing, actionName, serviceUrl, title) => {
-  thing.setActionHandler(actionName, async (input) => {
-    const url = `${serviceUrl}/${replacer.includeSlash(actionName)}`;
+  thing.setActionHandler(actionName, async (input=false) => {
+    const url = `${serviceUrl}/${replacer.formatUri(actionName)}`;
 
     const headers = headerFactory.post();
-    if (actionName.includes("delete")) {
-      const actionDeleteRequest = axios.delete(url, { headers });
+    if (actionName.includes("delete-")) {
+      const request = {headers: headers};
+      if(input) request.data = input;
+      const actionDeleteRequest = axios.delete(url, request);
       logger.info(
-        `setting ${actionName} action handler of ${title} thing to ${url}`
+        `performing ${actionName} action of ${title} thing to ${url} - input: ${JSON.stringify(
+          input
+        )}`
       );
       return actionDeleteRequest
         .then((response) => response.data)
         .catch(resultHandler.errorHandler);
-    } else {
+    } else if (actionName.includes("post-")) {
+      logger.info(url);
       const actionPostRequest = axios.post(url, input, { headers });
       logger.info(
         `performing ${actionName} action of ${title} thing to ${url} - input: ${JSON.stringify(
