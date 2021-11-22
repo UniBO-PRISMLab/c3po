@@ -1,7 +1,7 @@
 //TODO: consider OAS versions 2 and 3
 
 const obtainSchema = (openApiPath, method) => {
-  if (method === "get") return obtainGetSchema(openApiPath);
+  //if (method === "get") return obtainGetSchema(openApiPath);
   if (method === "post") return obtainPostSchema(openApiPath);
   if (method === "put") return obtainPutSchema(openApiPath);
   else return;
