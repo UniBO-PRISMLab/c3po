@@ -15,7 +15,7 @@ RegExp.quote = (str) => str.replace(/([.?*+^$[\]\\(){}|-])/g, "\\$1");
 
 const formatUri = (unformattedUri) => {
   const removedMethod = unformattedUri.replace(
-    /((post)|(get)|(delete)|(put))-/g,
+    /((post)|(get)|(delete)|(put)|(patch))-/g,
     ""
   );
   return includeSlash(removedMethod);

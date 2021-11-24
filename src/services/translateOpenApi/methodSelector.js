@@ -45,7 +45,6 @@ module.exports = {
     return convertRequest.actionConversion(operation, name, version, "delete");
   },
   patch(operation, name, version) {
-    // ? To be implemented
-    return convertRequest.actionConversion(operation, name, version, "patch");
+    return convertRequest.propertyConversion(operation, name, version, "patch");
   },
 };

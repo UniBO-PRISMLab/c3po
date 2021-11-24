@@ -19,6 +19,11 @@ module.exports = {
     headers['Accept'] = 'application/json';
     return headers;
   },
+  patch() {
+    const headers = {};
+    headers['Accept'] = 'application/json';
+    return headers;
+  },
   postAuth(bearer) {
     const headers = {};
     headers['Accept'] = 'application/json';
