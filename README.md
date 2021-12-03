@@ -1,8 +1,7 @@
 [![Site: IoTPrismLab](https://img.shields.io/badge/site-IoT%20Prism%20Lab-blue)](http://iot-prism-lab.nws.cs.unibo.it/)
 
-# WoT-Translator
-
-The WoTTranslator converts OpenAPI schema to W3C WoT Thing Descriptions and deploys them.
+# C3PO
+The C3PO (**C**onverter of O**P**en A**P**I S**P**ecification to WoT **O**bjects) translates [OpenAPI specification](https://swagger.io/specification/) (both versions 2 and 3) to [W3C WoT Thing Descriptions](https://www.w3.org/WoT/) and deploys them as a Web Thing proxy of the real application.
 
 ## Usage with Docker
 
@@ -13,13 +12,10 @@ This application can be deployed as a [Docker](https://www.docker.com) container
 ```console
 $ docker version
 ```
-In order to build and run the container from the project directory:
+In order to build and run the container from DockerHub:
 
 ```console
-$ git clone https://github.com/UniBO-PRISMLab/wot-translator
-$ cd wot-translator/
-$ docker build -t wot-translator:1.0 .
-$ docker run -p 3333:3333 -p 3334:3334 --name wot-translator wot-translator:1.0 
+$ docker run -p 3333:3333 -p 3334:3334 --name c3po ivanzy/c3po:1.1 
 ```
 
 ## Usage with NPM
@@ -33,11 +29,11 @@ $ npm run start
 
 ## Test
 
-To test if the WoTTranslator is running correctly, check your browser at <http://localhost:3334/api-docs/>.
+To test if C3PO is running correctly, check your browser at <http://localhost:3334/api-docs/>.
 
 ## Configuration
 
-The WoTTranslator configurations are defined in the [config.json file](src/config/conf.json)
+C3PO configurations are defined in the [config.json file](src/config/conf.json)
 
 
 ```json
@@ -54,6 +50,6 @@ The WoTTranslator configurations are defined in the [config.json file](src/confi
 }
 ```
 
-* translator: the port and hots that the WoTTranslator will run execute.
+* translator: the port and hots that C3PO will run execute.
 * wot: the port and host for accessing the Web Things created.
 * logLevel: the log level of the adapter. The default is "info", choose "debug" for more details or "warning" for less.

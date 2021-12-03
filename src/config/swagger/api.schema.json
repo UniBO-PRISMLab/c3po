@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "WoTTranslator",
-    "description": "The WoTTranslator converts OpenAPI schema to W3C WoT Thing Descriptions and deploys them",
+    "title": "C3PO",
+    "description": "C3PO converts OpenAPI Specification (OAS) to W3C WoT Thing Descriptions and instantiates Web Things that act of proxies of those services",
     "contact": {
       "email": "ivandimitry.ribeiro@unibo.it",
       "name": "Ivan Zyrianoff"
@@ -17,8 +17,8 @@
   "paths": {
     "/deployWoT": {
       "post": {
-        "summary": "deploys a Web Thing from a OpenAPI schema",
-        "description": "Translated a OpenAPI Schema into a WoT Thing Description and deploy the correspondent Web Thing",
+        "summary": "deploys a Web Thing from a OpenAPI Specification",
+        "description": "Translated a OpenAPI Specification into a WoT Thing Description and deploy the correspondent Web Thing",
         "responses": {
           "201": {
             "description": "successful operation"
@@ -37,8 +37,8 @@
     },
     "/deployWoT/url": {
       "post": {
-        "summary": "deploys a Web Thing given a URL with a OpenAPI schema",
-        "description": "Perform a GET request in the provided url that must contain a OpenAPI schema. Then, the application translates the obtained OpenAPI Schema into a WoT Thing Description and deploy the correspondent Web Thing",
+        "summary": "deploys a Web Thing given a URL with a OpenAPI Specification",
+        "description": "Perform a GET request in the provided url that must contain a OpenAPI Specification. Then, the application translates the obtained OpenAPI Specification into a WoT Thing Description and instantiates the correspondent Web Thing",
         "responses": {
           "201": {
             "description": "successful operation"
@@ -61,7 +61,7 @@
     "/translateOpenApi": {
       "post": {
         "summary": "Returns a Thing Description",
-        "description": "Translated a OpenAPI Schema into a WoT Thing Description",
+        "description": "Translated a OpenAPI Specification into a WoT Thing Description",
         "responses": {
           "200": {
             "description": "successful operation"
@@ -78,7 +78,7 @@
     "/translateOpenApi/url": {
       "post": {
         "summary": "Returns a Thing Description",
-        "description": "Perform a GET request in the provided url that must contain a OpenAPI schema. Then, the application translates the obtainedTranslated a OpenAPI Schema into a WoT Thing Description",
+        "description": "Perform a GET request in the provided url that must contain a OpenAPI Specification. Then, the application translates the obtained OpenAPI Specification into a WoT Thing Description",
         "responses": {
           "200": {
             "description": "successful operation"
@@ -95,6 +95,19 @@
     "/health": {
       "get": {
         "description": "returns an object containing application metadata if the application is current running",
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "503": {
+            "description": "Service Unavailable"
+          }
+        }
+      }
+    },
+    "/openapi": {
+      "get": {
+        "description": "returns C3PO OpenAPI Specification object",
         "responses": {
           "200": {
             "description": "successful operation"
