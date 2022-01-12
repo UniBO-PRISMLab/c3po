@@ -117,3 +117,5 @@ dist
 .pnp.*
 
 .src/config/conf.json
+libs/binding-http/test/server.cert
+libs/binding-http/test/server.key
