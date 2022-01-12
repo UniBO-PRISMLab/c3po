@@ -18,7 +18,7 @@ const errorHandler = (error) => {
     logger.debug(error);
     return Promise.reject(
       new Error(
-        `Something happened in setting up the request that triggered an Error`
+       `Something happened in setting up the request that triggered an Error: ${error}`
       )
     );
   }
