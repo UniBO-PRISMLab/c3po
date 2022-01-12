@@ -1,11 +1,11 @@
 {
-    "translator": {
-        "host": "localhost",
-        "port": 3334
-    },
-    "wot": {
-        "host": "localhost",
-        "port": 3333
-    },
-    "logLevel": "info"
+  "translator": {
+    "host": "localhost",
+    "port": 3334
+  },
+  "wot": {
+    "http": { "host": "localhost", "port": 3333 },
+    "mqtt": { "broker": "localhost", "port": 1883 }
+  },
+  "logLevel": "info"
 }
