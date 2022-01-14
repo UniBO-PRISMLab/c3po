@@ -117,13 +117,16 @@ const setAffordance = (
     `${serviceUrl}/${uri}`,
     input
   );
-
-  logger.network({
+  const log = {
     thing: title,
     operation: method.toUpperCase(),
     uri: uri,
     user: `${options.data.host}:${options.data.port}`,
-  });
+  };
+
+  if (input) log.payload = input;
+
+  logger.network(log);
 
   logger.info(
     `performing ${method.toUpperCase()} request for ${key} property of ${title}  at ${`${serviceUrl}/${uri}`}`
