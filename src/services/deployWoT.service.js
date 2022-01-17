@@ -7,6 +7,7 @@ const gConfig = require("../config/conf.json");
 const resultHandler = require("../utils/handlers/resultHandler");
 const headerFactory = require("../utils/headers");
 const replacer = require("../utils/replacer");
+const isValidJSON = require("../validations/jsonValidator");
 
 const createThing = async (td, serviceUrl) => {
   if (typeof wot.getServer() === "undefined")
@@ -104,7 +105,21 @@ const createThing = async (td, serviceUrl) => {
   }
 };
 
-const setAffordance = (
+const Redis = require("ioredis");
+//TODO: add server host and port
+const redis = new Redis();
+const cache = (id, log) =>
+  redis.get(id, (error, result) => {
+    if (error) throw error;
+    if (result !== null && isValidJSON(result)) {
+      return result;
+    } else {
+      log.cache = false;
+      return;
+    }
+  });
+
+const setAffordance = async (
   method,
   serviceUrl,
   title,
@@ -113,36 +128,49 @@ const setAffordance = (
   input = false
 ) => {
   const uri = replacer.formatUri(key);
-  const propertyRequest = setRequest[method](
-    `${serviceUrl}/${uri}`,
-    input
-  );
+  const url = `${serviceUrl}/${uri}`;
+
   const log = {
     thing: title,
     operation: method.toUpperCase(),
     uri: uri,
     user: `${options.data.host}:${options.data.port}`,
   };
-
   if (input) log.payload = input;
 
-  logger.network(log);
+  const cached =
+    method === "get" ? await cache(`${title}:${url}:${method}`, log) : false;
 
-  logger.info(
-    `performing ${method.toUpperCase()} request for ${key} property of ${title}  at ${`${serviceUrl}/${uri}`}`
-  );
-  return propertyRequest
-    .then((response) => {
-      logger.info({
-        msg: `${method.toUpperCase()} response`,
-        response: response.data,
-      });
-      return response.data;
-    })
-    .catch(resultHandler.errorHandler);
+  logger.network(log);
+  if (log.cache)
+    logger.info(
+      `retrieving ${method.toUpperCase()} request for ${key} property of ${title} from cache`
+    );
+  else
+    logger.info(
+      `performing ${method.toUpperCase()} request for ${key} property of ${title}  at ${url}`
+    );
+
+
+  try {
+    const response = cached
+      ? JSON.parse(cached)
+      : (await request[method](url, input)).data;
+
+    if (!log.cache && method === "get")
+      redis.set(url, JSON.stringify(response));
+
+    logger.info({
+      msg: `${method.toUpperCase()} response`,
+      response: response,
+    });
+    return response;
+  } catch (error) {
+    resultHandler.errorHandler(error);
+  }
 };
 
-const setRequest = {
+const request = {
   get: (url) =>
     axios.get(url, { headers: headerFactory.get() }),
   put: (url, input) =>
@@ -167,3 +195,7 @@ const setRequest = {
 };
 
 module.exports = createThing;
+
+//TODO: refactor cache logic to only the get of request
+// TODO: add conf for user to choose to use or no the cache
+//TODO: add cache parameter in the TD
