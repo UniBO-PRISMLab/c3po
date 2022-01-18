@@ -167,8 +167,8 @@ const request = {
           await axios.get(url, {
             headers: headerFactory.get(),
           })
-        ).data;
-        redis.set(cacheID, JSON.stringify(response));
+        );
+        redis.set(cacheID, JSON.stringify(response.data));
         logger.info(
           `sending the payload to the Cache Manager`
         );
@@ -177,7 +177,7 @@ const request = {
         logger.info(
           `retrieved ${url} of ${log.thing} from cache`
         );
-        return JSON.parse(cached);
+        return { data: JSON.parse(cached) };
       }
     }
     return axios.get(url, { headers: headerFactory.get() });
