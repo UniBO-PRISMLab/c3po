@@ -1,4 +1,5 @@
 const axios = require("axios");
+const Redis = require("ioredis");
 
 const logger = require("../config/logger");
 const wot = require("../server/wot.server");
@@ -8,11 +9,20 @@ const resultHandler = require("../utils/handlers/resultHandler");
 const headerFactory = require("../utils/headers");
 const replacer = require("../utils/replacer");
 const isValidJSON = require("../validations/jsonValidator");
+let redis;
+if (gConfig.cache.enable) {
+  redis = new Redis(gConfig.cache);
+}
 
 const createThing = async (td, serviceUrl) => {
   if (typeof wot.getServer() === "undefined")
     await wot.startServer();
   const thing = await wot.getServer().produce(td);
+
+  const affordanceParams = {
+    serviceUrl: serviceUrl,
+    title: td.title,
+  };
 
   for (const propertyName in thing.properties) {
     logger.info(
@@ -29,8 +39,7 @@ const createThing = async (td, serviceUrl) => {
         async (input, options = false) =>
           setAffordance(
             "put",
-            serviceUrl,
-            td.title,
+            affordanceParams,
             propertyName,
             options,
             input
@@ -43,8 +52,7 @@ const createThing = async (td, serviceUrl) => {
         async (input, options = false) =>
           setAffordance(
             "patch",
-            serviceUrl,
-            td.title,
+            affordanceParams,
             propertyName,
             options,
             input
@@ -57,8 +65,7 @@ const createThing = async (td, serviceUrl) => {
         async (options = false) =>
           setAffordance(
             "get",
-            serviceUrl,
-            td.title,
+            affordanceParams,
             propertyName,
             options
           )
@@ -71,8 +78,7 @@ const createThing = async (td, serviceUrl) => {
           async (input = false, options) =>
             setAffordance(
               "delete",
-              serviceUrl,
-              td.title,
+              affordanceParams,
               actionName,
               options,
               input
@@ -84,8 +90,7 @@ const createThing = async (td, serviceUrl) => {
           async (input, options) =>
             setAffordance(
               "post",
-              serviceUrl,
-              td.title,
+              affordanceParams,
               actionName,
               options,
               input
@@ -105,13 +110,11 @@ const createThing = async (td, serviceUrl) => {
   }
 };
 
-const Redis = require("ioredis");
-//TODO: add server host and port
-const redis = new Redis();
 const cache = (id, log) =>
   redis.get(id, (error, result) => {
     if (error) throw error;
     if (result !== null && isValidJSON(result)) {
+      log.cache = true;
       return result;
     } else {
       log.cache = false;
@@ -121,8 +124,7 @@ const cache = (id, log) =>
 
 const setAffordance = async (
   method,
-  serviceUrl,
-  title,
+  { serviceUrl, title },
   key,
   options,
   input = false
@@ -138,27 +140,12 @@ const setAffordance = async (
   };
   if (input) log.payload = input;
 
-  const cached =
-    method === "get" ? await cache(`${title}:${url}:${method}`, log) : false;
-
-  logger.network(log);
-  if (log.cache)
-    logger.info(
-      `retrieving ${method.toUpperCase()} request for ${key} property of ${title} from cache`
-    );
-  else
-    logger.info(
-      `performing ${method.toUpperCase()} request for ${key} property of ${title}  at ${url}`
-    );
-
-
   try {
-    const response = cached
-      ? JSON.parse(cached)
-      : (await request[method](url, input)).data;
-
-    if (!log.cache && method === "get")
-      redis.set(url, JSON.stringify(response));
+    logger.info(
+      `performing ${method.toUpperCase()} request for ${key} property of ${title} at ${url}`
+    );
+    const response = (await request[method](url, log)).data;
+    logger.network(log);
 
     logger.info({
       msg: `${method.toUpperCase()} response`,
@@ -171,23 +158,47 @@ const setAffordance = async (
 };
 
 const request = {
-  get: (url) =>
-    axios.get(url, { headers: headerFactory.get() }),
-  put: (url, input) =>
-    axios.put(url, input, { headers: headerFactory.put() }),
-  patch: (url, input) =>
-    axios.patch(url, input, {
+  get: async (url, log) => {
+    if (gConfig.cache.enable) {
+      const cacheID = `${log.thing}:${url}`;
+      const cached = await cache(cacheID, log);
+      if (!log.cache) {
+        const response = (
+          await axios.get(url, {
+            headers: headerFactory.get(),
+          })
+        ).data;
+        redis.set(cacheID, JSON.stringify(response));
+        logger.info(
+          `sending the payload to the Cache Manager`
+        );
+        return response;
+      } else {
+        logger.info(
+          `retrieved ${url} of ${log.thing} from cache`
+        );
+        return JSON.parse(cached);
+      }
+    }
+    return axios.get(url, { headers: headerFactory.get() });
+  },
+  put: (url, { payload }) =>
+    axios.put(url, payload, {
+      headers: headerFactory.put(),
+    }),
+  patch: (url, { payload }) =>
+    axios.patch(url, payload, {
       headers: headerFactory.patch(),
     }),
-  post: (url, input) =>
-    axios.post(url, input, {
+  post: (url, { payload }) =>
+    axios.post(url, payload, {
       headers: headerFactory.post(),
     }),
-  delete: (url, input) =>
-    input
+  delete: (url, { payload }) =>
+    payload
       ? axios.delete(url, {
           headers: headerFactory.delete(),
-          data: input,
+          data: payload,
         })
       : axios.delete(url, {
           headers: headerFactory.delete(),
@@ -195,7 +206,3 @@ const request = {
 };
 
 module.exports = createThing;
-
-//TODO: refactor cache logic to only the get of request
-// TODO: add conf for user to choose to use or no the cache
-//TODO: add cache parameter in the TD
