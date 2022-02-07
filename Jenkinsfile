@@ -4,17 +4,17 @@ pipeline {
     stages{
         stage("build"){
             steps{
-                echo "buildar"
+                npm build
             }
         }
         stage("test"){
-                        steps{
-                echo "testar"
+            steps{
+               echo "test"
             }
         }
         stage("deploy"){
-                        steps{
-                echo "deploys"
+            steps{
+                npm run start
             }
         }
     }
