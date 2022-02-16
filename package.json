@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "build": "tsc",
+    "build": "npm --prefix libs/thingweb.node-wot/ install && npm --prefix libs/thingweb.node-wot/ run build",
     "commit": "git-cz",
     "test": "jest"
   },
