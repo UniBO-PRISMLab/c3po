@@ -1,0 +1,3 @@
+[submodule "libs/thingweb.node-wot"]
+	path = libs/thingweb.node-wot
+	url = https://github.com/ivanzy/thingweb.node-wot
