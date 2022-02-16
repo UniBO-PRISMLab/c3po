@@ -9,7 +9,7 @@
     "coap": { "host": "localhost", "port": 5683 }
   },
   "cache": {
-    "enable": true,
+    "enable": false,
     "host": "localhost",
     "port": 6379,
     "manager": { "host": "localhost", "port": 1883 }
