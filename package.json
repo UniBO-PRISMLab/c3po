@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "build": "npm --prefix libs/thingweb.node-wot/ install && npm --prefix libs/thingweb.node-wot/ run build",
     "commit": "git-cz",
     "test": "jest"
   },
@@ -17,9 +18,10 @@
     }
   },
   "dependencies": {
-    "@node-wot/binding-coap": "^0.7.8",
-    "@node-wot/binding-http": "./libs/binding-http",
-    "@node-wot/core": "^0.7.8",
+    "@node-wot/binding-coap": "./libs/thingweb.node-wot/packages/binding-coap",
+    "@node-wot/binding-http": "./libs/thingweb.node-wot/packages/binding-http",
+    "@node-wot/core": "./libs/thingweb.node-wot/packages/core",
+    "@node-wot/td-tools": "./libs/thingweb.node-wot/packages/td-tools",
     "axios": "^0.25.0",
     "child_process": "^1.0.2",
     "cors": "^2.8.5",

@@ -15,15 +15,17 @@ $ docker version
 In order to build and run the container from DockerHub:
 
 ```console
-$ docker run -p 3333:3333 -p 3334:3334 --name c3po ivanzy/c3po:1.1 
+$ docker run -p 3333:3333 -p 3334:3334 --name c3po --network host ivanzy/c3po:1.1 
 ```
 
 ## Usage with NPM
 
-To install all dependencies of the Adapter and deploy it execute the following commands:
+To install all dependencies of the C3PO and deploy it execute the following commands:
 
 ```console
+$ git clone --recurse-submodules https://github.com/UniBO-PRISMLab/c3po.git
 $ npm install
+$ npm run build
 $ npm run start
 ```
 
@@ -38,18 +40,27 @@ C3PO configurations are defined in the [config.json file](src/config/conf.json)
 
 ```json
 {
-    "translator": {
-        "host": "<IP ADDRESS>",
-        "port": 3334
-    },
-    "wot": {
-        "host": "<IP ADDRESS>",
-        "port": 3333
-    },
-    "logLevel": "info"
+  "translator": {
+    "host": "localhost",
+    "port": 3334
+  },
+  "wot": {
+    "http": { "host": "localhost", "port": 3333 },
+    "mqtt": { "broker": "localhost", "port": 1883 },
+    "coap": { "host": "localhost", "port": 5683 }
+  },
+  "cache": {
+    "enable": false,
+    "host": "localhost",
+    "port": 6379,
+    "manager": { "host": "localhost", "port": 1883 }
+
+  },
+  "logLevel": "info"
 }
 ```
 
 * translator: the port and hots that C3PO will run execute.
-* wot: the port and host for accessing the Web Things created.
+* wot: the port and host for accessing the Web Things created for each different protocol binding.
+* cache: if enabled (enable: true), it will connect to a redis host in the specified address
 * logLevel: the log level of the adapter. The default is "info", choose "debug" for more details or "warning" for less.
