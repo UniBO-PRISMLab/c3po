@@ -120,3 +120,6 @@ dist
 .src/config/conf.json
 libs/binding-http/test/server.cert
 libs/binding-http/test/server.key
+test/mockFiles/starwarsapi.json
+test/restCalls/artifactGuide.rest
+test/restCalls/getTest.rest
