@@ -1,0 +1,39 @@
+GET http://localhost:3333/mockapi/properties/get-status
+
+###
+
+PUT http://localhost:3333/mockapi/properties/put-status
+Content-Type: application/json
+
+{
+  "id": 1,
+  "temperature": 23.16,
+  "humidity": 52.34,
+  "resistance": 23760.17
+}
+###
+
+POST http://localhost:3333/mockapi/actions/post-status
+Content-Type: application/json
+
+{
+  "id": 1,
+  "temperature": 23.16,
+  "humidity": 52.34,
+  "resistance": 23760.17
+}
+###
+
+POST http://localhost:3333/mockapi/actions/delete-status
+
+###
+
+PUT http://localhost:3333/mockapi/properties/patch-status
+Content-Type: application/json
+
+{
+  "id": 1,
+  "temperature": 23.16,
+  "humidity": 52.34,
+  "resistance": 23760.17
+}
