@@ -12,7 +12,8 @@ const translateOpenApi = (openApi) => {
     ],
     //*the id isn't a mandatory attribute and should be a unique identifier
     //id: openApi.info.title.toLowerCase().replace(" ", "-"),
-    title: openApi.info.title.toLowerCase().replace(" ", "-"),
+    //TODO: create pattern for titles
+    title: openApi.info.title.toLowerCase().replace(" " ,"-"),
     //TODO: add real securityDefinitions
     securityDefinitions: {
       nosec_sc: {
