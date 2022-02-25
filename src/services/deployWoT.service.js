@@ -9,6 +9,9 @@ const resultHandler = require("../utils/handlers/resultHandler");
 const headerFactory = require("../utils/headers");
 const replacer = require("../utils/replacer");
 const isValidJSON = require("../validations/jsonValidator");
+const appendFile = require("../utils/appendFile");
+
+//TODO move redis connection in a different file
 let redis;
 if (gConfig.cache.enable) {
   redis = new Redis(gConfig.cache);
@@ -135,8 +138,9 @@ const setAffordance = async (
   const log = {
     thing: title,
     operation: method.toUpperCase(),
-    uri: uri,
+    url: url,
     user: `${options.data.host}:${options.data.port}`,
+    time: Date.now(),
   };
   if (input) log.payload = input;
 
@@ -144,9 +148,9 @@ const setAffordance = async (
     logger.info(
       `performing ${method.toUpperCase()} request for ${key} property of ${title} at ${url}`
     );
-    const response = (await request[method](url, log)).data;
-    logger.network(log);
-
+    const response = await request[method](url, log); //.data;
+    logger.info(log);
+    appendFile(log);
     logger.info({
       msg: `${method.toUpperCase()} response`,
       response: response,
@@ -162,25 +166,28 @@ const request = {
     if (gConfig.cache.enable) {
       const cacheID = `${log.thing}:${url}`;
       const cached = await cache(cacheID, log);
-      if (!log.cache) {
-        const response = (
-          await axios.get(url, {
-            headers: headerFactory.get(),
-          })
-        );
-        redis.set(cacheID, JSON.stringify(response.data));
-        logger.info(
-          `sending the payload to the Cache Manager`
-        );
-        return response;
-      } else {
+      if (log.cache) {
         logger.info(
           `retrieved ${url} of ${log.thing} from cache`
         );
-        return { data: JSON.parse(cached) };
+        log.source = "cache";
+        log.data = JSON.parse(cached);
+
+        return JSON.parse(cached);
       }
     }
-    return axios.get(url, { headers: headerFactory.get() });
+    const response = await axios.get(url, {
+      headers: headerFactory.get(),
+    });
+    //* Now the cache-worker controls what goes in the cache, not the application
+    //* a solution could be sent the uncached data to the cache-worker to decided if it should be cached or not
+    /* redis.set(cacheID, JSON.stringify(response.data));
+    logger.info(
+      `sending the payload to the Cache Manager`
+    ); */
+    log.data = response.data;
+    log.source = "server";
+    return response.data;
   },
   put: (url, { payload }) =>
     axios.put(url, payload, {
