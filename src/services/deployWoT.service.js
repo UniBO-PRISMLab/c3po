@@ -116,7 +116,8 @@ const createThing = async (td, serviceUrl) => {
 const cache = (id, log) =>
   redis.get(id, (error, result) => {
     if (error) throw error;
-    if (result !== null && isValidJSON(result)) {
+    if (Math.random() <= process.env.CACHE_HIT_RATE) {
+      //if (result !== null && isValidJSON(result)) {
       log.cache = true;
       return result;
     } else {
