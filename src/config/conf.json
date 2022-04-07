@@ -13,7 +13,7 @@
     "host": "localhost",
     "port": 6379,
     "manager": { "host": "localhost", "port": 1883 }
-
   },
-  "logLevel": "info"
+  "logLevel": "info",
+  "logFile": "network.log"
 }
