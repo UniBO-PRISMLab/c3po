@@ -150,9 +150,9 @@ const setAffordance = async (
       `performing ${method.toUpperCase()} request for ${key} property of ${title} at ${url}`
     );
     const response = await request[method](url, log); //.data;
-    logger.info(log);
+    logger.debug({ log: log });
     appendFile(log);
-    logger.info({
+    logger.debug({
       msg: `${method.toUpperCase()} response`,
       response: response,
     });
@@ -166,28 +166,24 @@ const request = {
   get: async (url, log) => {
     if (gConfig.cache.enable) {
       const cacheID = `${log.thing}:${url}`;
+      // logger.debug(`CacheID: ${cacheID}`);
       const cached = await cache(cacheID, log);
       if (log.cache) {
         logger.info(
-          `retrieved ${url} of ${log.thing} from cache`
+          `retrieved ${url} of ${log.thing} from CACHE`
         );
         log.source = "cache";
         log.data = JSON.parse(cached);
-
-        return JSON.parse(cached);
+        return log.data;
       }
     }
     const response = await axios.get(url, {
       headers: headerFactory.get(),
     });
-    //* Now the cache-worker controls what goes in the cache, not the application
-    //* a solution could be sent the uncached data to the cache-worker to decided if it should be cached or not
-    /* redis.set(cacheID, JSON.stringify(response.data));
-    logger.info(
-      `sending the payload to the Cache Manager`
-    ); */
+
     log.data = response.data;
     log.source = "server";
+
     return response.data;
   },
   put: (url, { payload }) =>
